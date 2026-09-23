@@ -7,4 +7,4 @@ edition = "2024"
 console_error_panic_hook = "0.1.7"
 leptos = { version = "0.8.20", features = ["csr"] }
 wasm-bindgen = "0.2.128"
-web-sys = { version = "0.3.105", features = ["Window", "Document", "Element", "HtmlElement", "HtmlInputElement", "Event", "EventTarget", "KeyboardEvent", "MouseEvent", "Storage", "MediaQueryList", "console", "SubmitEvent"] }
+web-sys = { version = "0.3.105", features = ["Window", "Document", "Element", "HtmlElement", "HtmlInputElement", "CssStyleDeclaration", "DomRect", "Event", "EventTarget", "KeyboardEvent", "MouseEvent", "PointerEvent", "Storage", "MediaQueryList", "console", "SubmitEvent", "HtmlMediaElement", "HtmlVideoElement", "NodeList"] }

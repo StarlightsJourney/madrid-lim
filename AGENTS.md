@@ -12,8 +12,9 @@
 - `src/components/mod.rs` implements the mounted one-window portfolio.
 - Only `src/components/mod.rs` and `src/content.rs` are referenced by the mounted entry point. Old component, GL, and GPX files stay uncompiled and unlinked.
 - `style/tokens.css` contains the exact light and dark tokens from `STYLE.md`.
-- `style/main.css` contains the document window and responsive component styles.
-- `assets/evidence/` contains real media shown only in the evidence drawer.
+- `style/main.css` contains the document window, original pixel garden, drag, ticker, motion, and responsive component styles.
+- `assets/profile.jpg` is the optimized real identity crop.
+- `assets/evidence/` contains real images, poster frames, and route videos shown only in the evidence drawer. Video sources are created only after explicit play.
 - Old modules may remain on disk but must not be referenced, compiled, copied, or visible.
 
 Do not add JavaScript frameworks, TypeScript, Tailwind, WebGL, canvas, external fonts, or external runtime requests. Production Rust must remain fallible around browser APIs. Do not use unsafe HTML.
@@ -31,7 +32,7 @@ cargo test
 trunk build --release
 ```
 
-Also check the built CSP, public URL behavior, desktop and mobile overflow, keyboard interactions, both themes, 200 percent zoom, console errors, forbidden visible strings, and external network requests. GitHub Pages uses `/madrid-lim/`; local Trunk preview uses `/`.
+Also check the built CSP, public URL behavior, drag bounds and reset, mobile drag disablement, ticker accessibility and reduced motion, critter feedback, poster-first video loading, desktop and mobile overflow, keyboard interactions, both themes, 200 percent zoom, console errors, forbidden visible strings, and external network requests. GitHub Pages uses `/madrid-lim/`; local Trunk preview uses `/`.
 
 ## Repository safety
 

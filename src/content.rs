@@ -11,7 +11,7 @@ pub struct Project {
     pub status: &'static str,
 }
 
-pub const PROJECTS: [Project; 7] = [
+pub const PROJECTS: [Project; 6] = [
     Project {
         name: "Ka-teng",
         category: "family lineage",
@@ -55,17 +55,6 @@ pub const PROJECTS: [Project; 7] = [
         stack: "swift, macOS",
         href: Some("https://github.com/StarlightsJourney/NoSleepMenuBar"),
         status: "view on GitHub",
-    },
-    Project {
-        name: "Vertical SG",
-        category: "geospatial training",
-        summary: "Find tall HDB blocks for stair and vertical training.",
-        problem: "Singapore is flat and vertical training locations are hard to compare.",
-        built: "A pipeline for about 13,000 HDB blocks with geocoding and height based map queries.",
-        why: "Turns public building data into practical training discovery.",
-        stack: "postgis, maplibre, onemap, react native",
-        href: None,
-        status: "in the works",
     },
     Project {
         name: "NUS Timetable Optimizer",
