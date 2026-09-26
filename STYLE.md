@@ -29,7 +29,6 @@ Fixed, 64px, translucent with backdrop blur. Left: `ML` mark and location. Cente
 - A real background-removed photo of Madrid stands in the center, overlapping the headline, with a `hi, i'm Madrid.` speech bubble button.
 - Real project screenshots fan out behind the figure, softly blurred. They sharpen and spread on hover.
 - Two tilted lime labels state education and focus.
-- An `explore` tab at the bottom links to work.
 - Where supported, the headline, figure and screenshots respond to scroll through CSS scroll-driven animation only.
 
 ### Marquee

@@ -12,7 +12,7 @@ A fixed translucent top bar, then a full-height hero, two crossing marquee bands
 
 ## Components
 
-- Hero: cycling headline rebuilt per word so the letter entrance replays, one outlined letter, a cutout figure with a speech bubble, blurred real screenshots that sharpen on hover, tilted labels and an explore tab.
+- Hero: cycling headline rebuilt per word so the letter entrance replays, one outlined letter, a cutout figure with a speech bubble, blurred real screenshots that sharpen on hover and tilted labels.
 - Work rows: buttons with `aria-expanded` controlling `inert` regions. Panels open with a `grid-template-rows` transition. A pointer-following preview uses CSS variables set through CSSOM.
 - Run posts: 9:16 media with translateX slides, slide bars, video progress, a sound toggle, an info toggle and hover descriptions. One shared `IntersectionObserver` plays each flyover at 60 percent visibility and pauses it otherwise.
 - Contact: a mailto form with a live status line.
