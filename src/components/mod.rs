@@ -240,7 +240,6 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                 <img class="shot shot-1" src="assets/work/linguini-landing.webp" alt="" decoding="async" />
                 <img class="shot shot-2" src="assets/work/hillgpx.webp" alt="" decoding="async" />
                 <img class="shot shot-3 phone" src="assets/work/linguini-app.webp" alt="" decoding="async" />
-                <img class="shot shot-4" src="assets/work/kateng.webp" alt="" decoding="async" />
                 <img class="shot shot-5 phone" src="assets/media/rinjani.webp" alt="" decoding="async" />
             </div>
             <figure class="hero-figure">
@@ -626,11 +625,6 @@ fn Footer(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                     <p class="form-status" role="status">{move || status.get()}</p>
                 </form>
             </section>
-            <ul class="footer-links">
-                {CONTACTS.into_iter().map(|(label, href)| view! {
-                    <li><a href=href target="_blank" rel="noopener noreferrer"><SocialIcon name=label />{label}<span class="sr-only">", opens in a new tab"</span></a></li>
-                }).collect_view()}
-            </ul>
             <div class="footer-meta">
                 <span>"Madrid Lim, 2026"</span>
                 <button class="secret-button" on:click=move |_| open_egg()><span aria-hidden="true">"\u{2726} "</span>"psst, there's a secret"</button>
