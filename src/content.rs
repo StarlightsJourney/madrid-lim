@@ -255,13 +255,26 @@ pub const RUNS: [RunPost; 4] = [
 
 pub const EMAIL: &str = "e1398088@u.nus.edu";
 
-pub const DOCUMENTS: [(&str, &str, &str); 2] = [
-    ("resume", "assets/docs/madrid-lim-resume.pdf", "PDF, 670 KB"),
-    (
-        "NUS grades",
-        "assets/docs/madrid-lim-nus-transcript.pdf",
-        "PDF, 420 KB",
-    ),
+pub struct Document {
+    pub title: &'static str,
+    pub detail: &'static str,
+    pub href: &'static str,
+    pub meta: &'static str,
+}
+
+pub const DOCUMENTS: [Document; 2] = [
+    Document {
+        title: "Resume",
+        detail: "One page, Sep 2026",
+        href: "assets/docs/madrid-lim-resume.pdf",
+        meta: "PDF \u{b7} 670 KB",
+    },
+    Document {
+        title: "NUS grades",
+        detail: "Unofficial, GPA 4.39",
+        href: "assets/docs/madrid-lim-nus-transcript.pdf",
+        meta: "PDF \u{b7} 420 KB",
+    },
 ];
 
 pub const CONTACTS: [(&str, &str); 3] = [
@@ -296,7 +309,7 @@ mod tests {
                 paths.push(href);
             }
         }
-        paths.extend(DOCUMENTS.iter().map(|(_, href, _)| *href));
+        paths.extend(DOCUMENTS.iter().map(|document| document.href));
         paths
     }
 
