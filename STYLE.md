@@ -27,7 +27,7 @@ Fixed, 64px, translucent with backdrop blur. Left: `ML` mark and location. Cente
 ### Hero
 - A giant Anton headline cycles through short role words every 2.6s with a staggered letter entrance. One letter per word is drawn as an outline.
 - A real background-removed photo of Madrid stands in the center, overlapping the headline, with a `hi, i'm Madrid.` speech bubble button.
-- Real project screenshots fan out behind the figure, softly blurred. They sharpen and spread on hover.
+- Four real project screenshots sit behind the figure in a symmetric arrangement: a landscape shot at each outer edge and a phone shot on each side of the figure, with no overlap with the tilted labels. They are softly blurred and sharpen and spread slightly on hover. Phones only on mobile.
 - Two tilted lime labels state education and focus.
 - Where supported, the headline, figure and screenshots respond to scroll through CSS scroll-driven animation only.
 
@@ -56,7 +56,7 @@ A large statement with lime highlighted phrases, a cutout photo with a sticker, 
 The resume and NUS grades are offered as PDF downloads in the top bar (resume) and the contact section. Published copies are flattened to images with the phone number, student number and date of birth removed. Never publish the original files.
 
 ### Footer and contact
-Ink background with a giant lime `say hi`, then a `Write to me` section with the NUS email (e1398088@u.nus.edu) as a same-tab mail link and a short form (name, topic, message). Submitting builds a `mailto:` link with an encoded subject and body and opens the visitor's email app. No form data leaves the browser any other way. Below: pill links to GitHub, LinkedIn and Instagram, a subtle Konami hint and back to top.
+Ink background with a giant lime `say hi`, then a `Write to me` section with the NUS email (e1398088@u.nus.edu) as a same-tab mail link and a short form (name, topic, message). Submitting builds a `mailto:` link with an encoded subject and body and opens the visitor's email app. No form data leaves the browser any other way. Below: a secret button that opens the Next up dialog and back to top. Profile links live in the top bar.
 
 ### Easter eggs
 - Tapping the hero speech bubble cycles short lines about what is next, and the last tap opens the Next up dialog.
