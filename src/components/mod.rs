@@ -260,7 +260,6 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
             </figure>
             <p class="tilt tilt-left">"Data Science @ NUS"</p>
             <p class="tilt tilt-right">"builds tools / runs ultras"</p>
-            <a class="explore" href="#work"><span>"explore"</span><span aria-hidden="true">"\u{2193}"</span></a>
         </section>
     }
 }
