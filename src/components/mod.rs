@@ -140,7 +140,7 @@ pub fn App() -> impl IntoView {
             <Runs />
             <About />
         </main>
-        <Footer />
+        <Footer open_egg />
         <Show when=move || egg_open.get()>
             <NextUp close=close_egg />
         </Show>
@@ -165,7 +165,7 @@ fn TopBar(
                 }).collect_view()}
             </nav>
             <div class="topbar-actions">
-                <a class="resume-pill" href=DOCUMENTS[0].1 download="madrid-lim-resume.pdf">"resume"<span aria-hidden="true">" \u{2193}"</span></a>
+                <a class="resume-pill" href=DOCUMENTS[0].href download="madrid-lim-resume.pdf"><span>"resume"</span><i aria-hidden="true">"\u{2193}"</i></a>
                 <SocialLinks />
                 <button class="theme-toggle" aria-label=move || if theme.get() == "light" { "use dark theme" } else { "use light theme" } on:click=move |_| toggle_theme()>
                     <span aria-hidden="true">{move || if theme.get() == "light" { "\u{25D0}" } else { "\u{25D1}" }}</span>
@@ -562,16 +562,28 @@ fn About() -> impl IntoView {
 fn DocumentLinks() -> impl IntoView {
     view! {
         <ul class="doc-links">
-            {DOCUMENTS.into_iter().map(|(label, href, size)| {
-                let file = href.rsplit('/').next().unwrap_or("document.pdf");
-                view! { <li><a href=href download=file><span aria-hidden="true">"\u{2193} "</span>{format!("download {label}")}<small>{size}</small></a></li> }
+            {DOCUMENTS.iter().map(|document| {
+                let file = document.href.rsplit('/').next().unwrap_or("document.pdf");
+                view! {
+                    <li>
+                        <a class="doc-card" href=document.href download=file aria-label=format!("Download {}, {}", document.title, document.meta)>
+                            <span class="doc-sheet" aria-hidden="true"><b>"PDF"</b></span>
+                            <span class="doc-text" aria-hidden="true">
+                                <strong>{document.title}</strong>
+                                <span>{document.detail}</span>
+                                <small>{document.meta}</small>
+                            </span>
+                            <span class="doc-arrow" aria-hidden="true">"\u{2193}"</span>
+                        </a>
+                    </li>
+                }
             }).collect_view()}
         </ul>
     }
 }
 
 #[component]
-fn Footer() -> impl IntoView {
+fn Footer(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
     let (name, set_name) = signal(String::new());
     let (topic, set_topic) = signal("Internship".to_string());
     let (message, set_message) = signal(String::new());
@@ -602,13 +614,16 @@ fn Footer() -> impl IntoView {
                         set_status.set(format!("Could not open an email app. Write to {EMAIL}."));
                     }
                 }>
-                    <label><span>"your name"</span><input name="name" autocomplete="name" maxlength="80" prop:value=move || name.get() on:input=move |event| set_name.set(event_target_value(&event)) /></label>
-                    <label><span>"about"</span>
-                        <select name="topic" on:change=move |event| set_topic.set(event_target_value(&event))>
-                            {["Internship", "Collaboration", "Race or trail tip", "Just saying hi"].into_iter().map(|option| view! { <option value=option selected=move || topic.get() == option>{option}</option> }).collect_view()}
+                    <p class="madlib">
+                        "Hi Madrid, I'm "
+                        <input name="name" aria-label="Your name" placeholder="your name" autocomplete="name" maxlength="80" size="10" prop:value=move || name.get() on:input=move |event| set_name.set(event_target_value(&event)) />
+                        " and I'm writing about "
+                        <select name="topic" aria-label="Topic" on:change=move |event| set_topic.set(event_target_value(&event))>
+                            {[("Internship", "an internship"), ("Collaboration", "a collaboration"), ("Race or trail tip", "a race or trail"), ("Hello", "just saying hi")].into_iter().map(|(value, label)| view! { <option value=value selected=move || topic.get() == value>{label}</option> }).collect_view()}
                         </select>
-                    </label>
-                    <label class="wide"><span>"message"</span><textarea name="message" rows="5" maxlength="2000" required=true prop:value=move || message.get() on:input=move |event| set_message.set(event_target_value(&event))></textarea></label>
+                        "."
+                    </p>
+                    <textarea name="message" aria-label="Message" placeholder="Tell me what you have in mind..." rows="4" maxlength="2000" required=true prop:value=move || message.get() on:input=move |event| set_message.set(event_target_value(&event))></textarea>
                     <button type="submit" class="send-button">"send with your email app"<span aria-hidden="true">" \u{2192}"</span></button>
                     <p class="form-status" role="status">{move || status.get()}</p>
                 </form>
@@ -620,7 +635,7 @@ fn Footer() -> impl IntoView {
             </ul>
             <div class="footer-meta">
                 <span>"Madrid Lim, 2026"</span>
-                <span class="konami-hint" aria-hidden="true">"\u{2191}\u{2191}\u{2193}\u{2193}\u{2190}\u{2192}\u{2190}\u{2192} b a"</span>
+                <button class="secret-button" on:click=move |_| open_egg()><span aria-hidden="true">"\u{2726} "</span>"psst, there's a secret"</button>
                 <a href="#top">"back to top \u{2191}"</a>
             </div>
         </footer>
