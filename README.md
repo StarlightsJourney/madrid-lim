@@ -29,6 +29,10 @@ trunk build --release
 
 For the Pages path, build into a separate directory: `trunk build --release --public-url /madrid-lim/ --dist /tmp/madrid-lim-pages-dist`, then inspect `/tmp/madrid-lim-pages-dist/index.html`.
 
+## Contributing
+
+See `CONTRIBUTING.md`. Enable the authorship hooks with `git config core.hooksPath .githooks`.
+
 ## Interaction checks
 
 1. Confirm the full window fits at 1440 by 900 and 1280 by 720.

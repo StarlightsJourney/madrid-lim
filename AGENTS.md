@@ -37,3 +37,5 @@ Also check the built CSP, public URL behavior, drag bounds and reset, mobile dra
 ## Repository safety
 
 Do not commit, push, create remotes, deploy, or modify sibling repositories. Do not delete existing files without explicit approval. Runtime output and screenshots belong under `/tmp`, not the repository.
+
+Follow the authorship policy in `CONTRIBUTING.md`: never add AI or bot `Co-authored-by` trailers or generated-by lines to commits.

@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+check="$(git rev-parse --show-toplevel)/.githooks/check-contributors"
+zero=0000000000000000000000000000000000000000
+
+while read -r _local_ref local_sha _remote_ref remote_sha; do
+  [ "$local_sha" = "$zero" ] && continue
+  if [ "$remote_sha" = "$zero" ]; then
+    "$check" range "$local_sha"
+  else
+    "$check" range "$remote_sha..$local_sha"
+  fi
+done

@@ -1,0 +1,53 @@
+#!/bin/sh
+# Rejects commits that credit AI assistants or bots as contributors.
+# Usage:
+#   check-contributors message <file>
+#   check-contributors range <rev-range>
+set -eu
+
+AGENTS='devin|claude|anthropic|copilot|chatgpt|openai|codex|cursor|windsurf|codeium|gemini|aider|\[bot\]'
+
+fail() {
+  printf 'contributor policy: %s\n' "$1" >&2
+  printf 'See CONTRIBUTING.md. AI assistants and bots must not be listed as contributors.\n' >&2
+  exit 1
+}
+
+check_message() {
+  label=$1
+  body=$(grep -v '^#' || true)
+  if printf '%s\n' "$body" | grep -Eiq "^[[:space:]]*co-authored-by:.*($AGENTS)"; then
+    fail "$label credits an AI assistant or bot in a Co-authored-by trailer"
+  fi
+  if printf '%s\n' "$body" | grep -Eiq "generated (with|by).*($AGENTS)"; then
+    fail "$label contains a generated-by line for an AI assistant"
+  fi
+}
+
+check_identity() {
+  label=$1
+  role=$2
+  ident=$3
+  if printf '%s\n' "$ident" | grep -Eiq "$AGENTS"; then
+    fail "$label has an AI assistant or bot $role: $ident"
+  fi
+}
+
+case "${1:-}" in
+  message)
+    [ $# -eq 2 ] || fail 'usage: check-contributors message <file>'
+    check_message 'commit message' < "$2"
+    ;;
+  range)
+    [ $# -eq 2 ] || fail 'usage: check-contributors range <rev-range>'
+    for sha in $(git rev-list "$2"); do
+      short=$(git rev-parse --short "$sha")
+      git log -1 --format=%B "$sha" | check_message "commit $short"
+      check_identity "commit $short" author "$(git log -1 --format='%an <%ae>' "$sha")"
+      check_identity "commit $short" committer "$(git log -1 --format='%cn <%ce>' "$sha")"
+    done
+    ;;
+  *)
+    fail 'usage: check-contributors message <file> | range <rev-range>'
+    ;;
+esac
