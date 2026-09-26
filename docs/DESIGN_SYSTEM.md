@@ -2,20 +2,22 @@
 
 `STYLE.md` is the binding product, layout, content, accessibility, and visual specification. This file summarizes the implementation only.
 
-## Tokens and scenery
+## Tokens and type
 
-`style/tokens.css` contains the light, dark, and garden palettes. Light is the default unless the system prefers dark or the user saved a choice. Blue is the sole action and selection accent inside the window. The outer garden uses original CSS pixel tiles, shrubs, trees, flowers, stones, and two small interactive critters. It stays behind the neutral window and is hidden on mobile.
+`style/tokens.css` holds the Anton `@font-face` and the light and dark palettes. Light is the default unless the system prefers dark or the user saved a choice. The theme is applied as `data-theme` on the root element. Lime (`--accent`) is always a background under dark text: nav hover, open project rows, tilted labels, highlights, the sound and info toggles when active, and the footer headline on ink.
 
-## One-window structure
+## Page structure
 
-The desktop app is one centered, draggable document window with a 44 pixel titlebar, 248 to 280 pixel identity pane, project workspace, and 34 pixel ticker. The identity uses a small real profile crop. Projects uses a plain six-row list beside one factual detail pane. About contains the only year and GPA line. Outside uses a clean reading pane. At 800 pixels and below, the interface becomes an edge-to-edge document with one natural vertical scroll and no drag transform.
+A fixed translucent top bar, then a full-height hero, two crossing marquee bands, the selected work list, the runs reel, the about section, and an ink footer. Section titles, project names, post titles and the footer headline use Anton in uppercase. Body copy uses the system UI stack.
 
 ## Components
 
-Selection uses `--selection` plus a blue edge. The tech ticker uses one screen-reader list and two `aria-hidden` visual tracks. Locally rendered geometric glyphs avoid icon dependencies. The evidence drawer contains three real images and three poster-first real route videos. MP4 sources are created only after explicit play. The terminal accepts fixed factual commands and uses `aria-live` only for its newest output.
-
-There are no charts, generated routes, fake visualizations, WebGL scenes, canvas elements, stat cards, or decorative data graphics inside the window.
+- Hero: cycling headline rebuilt per word so the letter entrance replays, one outlined letter, a cutout figure with a speech bubble, blurred real screenshots that sharpen on hover, tilted labels and an explore tab.
+- Work rows: buttons with `aria-expanded` controlling `inert` regions. Panels open with a `grid-template-rows` transition. A pointer-following preview uses CSS variables set through CSSOM.
+- Run posts: 9:16 media with translateX slides, slide bars, video progress, a sound toggle, an info toggle and hover descriptions. One shared `IntersectionObserver` plays each flyover at 60 percent visibility and pauses it otherwise.
+- Contact: a mailto form with a live status line.
+- Easter eggs: a speech bubble that cycles lines and a Next up ticket dialog opened by the bubble or the Konami code.
 
 ## Access and motion
 
-All controls have visible focus rings and semantic names. Dialogs close with Escape and backdrop selection and restore focus. Mobile controls meet the 44 pixel target. The window enters in 180ms, project detail changes in 140ms, selection in 160ms, controls in 120ms, and the ticker moves left-to-right over 32 seconds. Reduced motion removes transforms, travel, ticker duplication, and detail movement. Content remains readable at 200 percent zoom and down to 320 pixels without horizontal scrolling.
+All controls have visible focus rings and names. The skip link targets work. Mobile controls meet the 44 pixel target. Reduced motion stops word cycling, bobbing, marquee, scroll-driven effects and autoplay, and videos fall back to native controls. Content reflows without horizontal page scrolling down to 320 pixels and at 200 percent zoom.

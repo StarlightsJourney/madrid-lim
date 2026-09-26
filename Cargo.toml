@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 console_error_panic_hook = "0.1.7"
+js-sys = { version = "0.3.105", default-features = false, features = ["std"] }
 leptos = { version = "0.8.20", features = ["csr"] }
 wasm-bindgen = "0.2.128"
-web-sys = { version = "0.3.105", features = ["Window", "Document", "Element", "HtmlElement", "HtmlInputElement", "CssStyleDeclaration", "DomRect", "Event", "EventTarget", "KeyboardEvent", "MouseEvent", "PointerEvent", "Storage", "MediaQueryList", "console", "SubmitEvent", "HtmlMediaElement", "HtmlVideoElement", "NodeList"] }
+web-sys = { version = "0.3.105", features = ["Window", "Document", "Element", "HtmlElement", "HtmlInputElement", "CssStyleDeclaration", "DomRect", "Event", "EventTarget", "KeyboardEvent", "MouseEvent", "PointerEvent", "Storage", "MediaQueryList", "console", "SubmitEvent", "HtmlMediaElement", "HtmlVideoElement", "NodeList", "IntersectionObserver", "IntersectionObserverEntry", "IntersectionObserverInit", "ScrollToOptions", "ScrollBehavior", "ScrollIntoViewOptions", "ScrollLogicalPosition", "Location"] }
