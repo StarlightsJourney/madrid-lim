@@ -51,10 +51,10 @@ Two crossing bands, lime with project names and ink with the tech stack, moving 
 - A lime GPX chip sits at the bottom left of the media for posts with a route. It downloads the original file the user supplied, same-origin, and shows the file size.
 
 ### About
-A large statement with lime highlighted phrases, a cutout photo with a sticker, and three columns: education with resume and grades downloads, experience, and races with the next race flagged. Keep the education line once: NUS B.Sc. Data Science, year 3, GPA 4.39/5.00.
+A large statement with lime highlighted phrases, a cutout photo with a sticker, and three columns: education, experience, and races with the next race flagged. Keep the education line once: NUS B.Sc. Data Science, year 3, GPA 4.39/5.00.
 
 ### Documents
-The resume and NUS grades are offered as PDF downloads in the top bar (resume), the about section and the contact section. Published copies are flattened to images with the phone number, student number and date of birth removed. Never publish the original files.
+The resume and NUS grades are offered as PDF downloads in the top bar (resume) and the contact section. Published copies are flattened to images with the phone number, student number and date of birth removed. Never publish the original files.
 
 ### Footer and contact
 Ink background with a giant lime `say hi`, then a `Write to me` section with the NUS email (e1398088@u.nus.edu) as a same-tab mail link and a short form (name, topic, message). Submitting builds a `mailto:` link with an encoded subject and body and opens the visitor's email app. No form data leaves the browser any other way. Below: pill links to GitHub, LinkedIn and Instagram, a subtle Konami hint and back to top.
