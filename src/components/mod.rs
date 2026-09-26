@@ -533,7 +533,6 @@ fn About() -> impl IntoView {
                 <div>
                     <h3>"Education"</h3>
                     <p>"NUS, B.Sc. Data Science, year 3. GPA 4.39/5.00, best semester 4.80."</p>
-                    <DocumentLinks />
                 </div>
                 <div>
                     <h3>"Experience"</h3>
