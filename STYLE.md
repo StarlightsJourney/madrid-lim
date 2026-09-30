@@ -56,11 +56,11 @@ A large statement with lime highlighted phrases, a cutout photo with a sticker, 
 The resume and NUS grades are offered as PDF downloads in the top bar (resume) and the contact section. Published copies are flattened to images with the phone number, student number and date of birth removed. Never publish the original files.
 
 ### Footer and contact
-Ink background with a giant lime `say hi`, then a `Write to me` section with the NUS email (e1398088@u.nus.edu) as a same-tab mail link and a short form (name, topic, message). Submitting builds a `mailto:` link with an encoded subject and body and opens the visitor's email app. No form data leaves the browser any other way. Below: a secret button that opens the Next up dialog and back to top. Profile links live in the top bar.
+Ink background with a giant lime `say hi`, then a `Write to me` section with the NUS email (e1398088@u.nus.edu) as a same-tab mail link and a short form (name, topic, message). Submitting builds a `mailto:` link with an encoded subject and body and opens the visitor's email app. No form data leaves the browser any other way. Below: a secret button that opens the Next up dialog and back to top. Profile links live in the top bar on desktop; below 900px, where the top bar hides them, they appear as pill links under the email in the contact section.
 
 ### Easter eggs
 - Tapping the hero speech bubble cycles short lines about what is next, and the last tap opens the Next up dialog.
-- The Konami code opens the same dialog. It shows three tickets: the BTS170 race bib (Bromo Tengger Semeru, East Java, Nov 7 to 8, 2026), the Sheng public launch (end of 2026), and a boarding pass to India and Africa. The dialog traps focus, closes with Escape or the backdrop, and returns focus.
+- The Konami code opens the same dialog. It shows three tickets: the BTS170 race bib (Bromo Tengger Semeru, East Java, Nov 7 to 8, 2026), the Sheng public launch (end of 2026), and a boarding pass to India and Africa. The dialog traps focus, closes with Escape or the backdrop, and returns focus. It scrolls when taller than the screen, and on phones the close button stays pinned to the top right so it is always reachable.
 - A short console greeting for developers.
 - Easter egg content must stay factual.
 
