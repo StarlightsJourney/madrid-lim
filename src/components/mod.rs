@@ -593,6 +593,11 @@ fn Footer(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                     <h2 id="contact-title">"Write to me"</h2>
                     <p class="footer-lead">"Internships, collaborations, a race to try, or a trip to India or Africa. Messages go to my NUS inbox."</p>
                     <a class="email-link" href=format!("mailto:{EMAIL}")>{EMAIL}</a>
+                    <ul class="contact-socials">
+                        {CONTACTS.into_iter().map(|(label, href)| view! {
+                            <li><a href=href target="_blank" rel="noopener noreferrer"><SocialIcon name=label />{label}<span class="sr-only">", opens in a new tab"</span></a></li>
+                        }).collect_view()}
+                    </ul>
                     <DocumentLinks />
                 </div>
                 <form class="contact-form" on:submit=move |event| {
