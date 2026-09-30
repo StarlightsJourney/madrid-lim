@@ -13,10 +13,42 @@ Rust, Leptos CSR, WebAssembly, Trunk, and plain CSS. The app uses self-hosted An
 ```sh
 rustup target add wasm32-unknown-unknown
 cargo install trunk --version 0.21.14 --locked
-trunk serve --address 127.0.0.1 --port 8080
+git config core.hooksPath .githooks
+trunk build --release
+cd dist && python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8080`.
+Open `http://127.0.0.1:8080`. Preview release builds from `dist/` like this; `trunk serve` injects a reload script that the CSP blocks.
+
+## Updating the site
+
+The live site is https://starlightsjourney.github.io/madrid-lim/. Every merge into `main` rebuilds and publishes it through `.github/workflows/deploy.yml` in a few minutes. There is no manual deploy.
+
+| To change | Edit |
+| --- | --- |
+| Project text, run posts, stats, GPX links, contact links, email, downloadable documents | `src/content.rs` |
+| Layout and behaviour: hero lines, sections, easter eggs, contact form | `src/components/mod.rs` |
+| Colours and font | `style/tokens.css` |
+| Spacing, sizes, motion, mobile layout | `style/main.css` |
+| Photos, cutouts, flyovers and posters | `assets/media/` |
+| Project screenshots | `assets/work/` |
+| GPX routes | `assets/gpx/` |
+| Resume and grades | `assets/docs/` |
+
+Workflow:
+
+1. Create a branch: `git checkout -b my-change`.
+2. Edit, then preview with `trunk build --release` and the static server above.
+3. Run the validation commands below.
+4. Commit, push and open a pull request: `git push -u origin my-change && gh pr create --fill`.
+5. Merge it: `gh pr merge --merge --delete-branch`, or use the Merge button on GitHub.
+
+Notes:
+
+- Images are WebP. Videos are H.264 at about 432 by 960 with `+faststart`, plus a WebP poster frame taken from the video. Reference every new file in `src/content.rs`; `cargo test` fails if a referenced file is missing. A new folder under `assets/` also needs a `copy-dir` line in `index.html`.
+- Never commit an original resume or transcript. Remove the phone number, student number and date of birth, and flatten the PDF to images first.
+- `index.html` pins the Trunk loader in the CSP with two `sha256` hashes, one for `/` and one for `/madrid-lim/`. They stay valid for normal edits. After upgrading Trunk or renaming the crate, rebuild both targets and replace the hashes.
+- Commits must not credit AI assistants or bots as co-authors. The hooks in `.githooks/` enforce this; see `CONTRIBUTING.md`.
 
 ## Validation
 
