@@ -63,6 +63,7 @@ a { color: inherit; }
 .hero-figure:hover img { rotate: -2deg; }
 @keyframes bob { 50% { translate: 0 -8px; } }
 .hero-bubble { position: absolute; right: 88%; top: 11%; padding: 8px 14px; border: 2px solid var(--ink); border-radius: 18px 18px 4px 18px; background: var(--card); box-shadow: 4px 4px 0 var(--ink); color: var(--ink); font-size: 15px; font-weight: 800; white-space: nowrap; rotate: -6deg; animation: pop 700ms 500ms var(--ease) both; transition: rotate 250ms var(--ease), box-shadow 150ms, translate 150ms; }
+.bubble-break { display: none; }
 .hero-bubble:hover { rotate: -2deg; }
 .hero-bubble:active { translate: 3px 3px; box-shadow: 1px 1px 0 var(--ink); }
 .bubble-text { display: inline-block; animation: bubble-in 350ms var(--ease) both; }
@@ -321,7 +322,8 @@ a { color: inherit; }
 @media (max-width: 900px) {
   .topbar { grid-template-columns: auto 1fr auto; padding: 0 12px; }
   .brand-place, .social-links, .resume-pill { display: none; }
-  .hero-bubble { right: 64%; width: max-content; max-width: calc(50vw - var(--fig-h) * .0717 - 18px); line-height: 1.25; text-align: left; white-space: normal; }
+  .hero-bubble { right: auto; top: auto; left: calc(14px - 50vw + var(--fig-h) * .256); bottom: 83%; padding: 7px 12px; line-height: 1.25; text-align: left; }
+  .bubble-break { display: inline; }
   .contact { grid-template-columns: 1fr; gap: 64px; }
   .contact .doc-links { grid-template-columns: 1fr; }
   .tickets { grid-template-columns: 1fr; }
@@ -345,12 +347,12 @@ a { color: inherit; }
   .hero { --fig-h: min(62svh, 560px); min-height: max(640px, 100svh); }
   .hero-title { inset-block-start: 80px; font-size: min(22vw, 150px); }
   .hero-word { flex-direction: column; align-items: center; }
-  .hero-bubble { right: 64%; top: 4%; font-size: 13px; }
+  .hero-bubble { font-size: 13px; }
   .shot-1, .shot-2 { display: none; }
   .shot.phone { width: 26vw; top: 34%; }
   .shot-3 { left: 4vw; } .shot-5 { right: 4vw; }
   .tilt { font-size: 12px; }
-  .tilt-left { top: 25%; left: 12px; }
+  .tilt-left { top: auto; bottom: 142px; left: 12px; }
   .tilt-right { top: auto; bottom: 90px; right: 12px; }
   .work-row { grid-template-columns: 30px minmax(0, 1fr) 32px; gap: 10px; padding: 16px 4px; }
   .work-status { display: none; }

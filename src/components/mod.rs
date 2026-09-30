@@ -54,12 +54,12 @@ const SECTIONS: [(&str, &str); 4] = [
 
 const VISIBLE_PROJECTS: usize = 5;
 
-const BUBBLE_LINES: [&str; 5] = [
-    "hi, i'm Madrid.",
-    "next race: BTS170 in November.",
-    "Sheng goes public this year.",
-    "India and Africa are on my map.",
-    "one more tap...",
+const BUBBLE_LINES: [(&str, &str); 5] = [
+    ("hi, i'm Madrid.", ""),
+    ("next race:", "BTS170 in Nov."),
+    ("Sheng goes", "public this year."),
+    ("India and Africa", "are on my map."),
+    ("one more tap...", ""),
 ];
 
 const KONAMI: [&str; 10] = [
@@ -245,7 +245,7 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
             <figure class="hero-figure">
                 <img src="assets/media/hero.webp" width="720" height="1406" alt="Madrid Lim smiling and making a peace sign" fetchpriority="high" decoding="async" />
                 <figcaption>
-                    <button class="hero-bubble" aria-label=move || format!("{} Tap for more.", BUBBLE_LINES[line.get()]) on:click=move |_| {
+                    <button class="hero-bubble" aria-label=move || { let (first, second) = BUBBLE_LINES[line.get()]; format!("{first} {second} Tap for more.") } on:click=move |_| {
                         if line.get_untracked() + 1 == BUBBLE_LINES.len() {
                             set_line.set(0);
                             open_egg();
@@ -253,7 +253,10 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                             set_line.update(|value| *value += 1);
                         }
                     }>
-                        {move || view! { <span class="bubble-text">{BUBBLE_LINES[line.get()]}</span> }}
+                        {move || {
+                            let (first, second) = BUBBLE_LINES[line.get()];
+                            view! { <span class="bubble-text" aria-hidden="true">{first}{(!second.is_empty()).then(|| view! { " "<br class="bubble-break" />{second} })}</span> }
+                        }}
                     </button>
                 </figcaption>
             </figure>
