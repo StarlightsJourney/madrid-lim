@@ -11,6 +11,7 @@ const UPLOAD_IMAGES: [&str; 6] = ["jpg", "jpeg", "png", "webp", "heic", "heif"];
 const UPLOAD_VIDEOS: [&str; 3] = ["mp4", "mov", "m4v"];
 const PLATFORMS: [&str; 3] = ["GitHub", "LinkedIn", "Instagram"];
 const TICKET_STYLES: [&str; 3] = ["bib", "launch", "pass"];
+const SHOWCASE_SHAPES: [&str; 3] = ["screen", "phone", "page"];
 const MONTHS: [&str; 12] = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
@@ -126,7 +127,17 @@ struct Hero {
     summary: Text,
     label_left: Text,
     label_right: Text,
+    showcase: List<Showcase>,
     bubble: List<Bubble>,
+}
+
+#[derive(Deserialize, Default)]
+#[serde(default)]
+struct Showcase {
+    label: Text,
+    image: Text,
+    url: Text,
+    shape: Text,
 }
 
 #[derive(Deserialize, Default)]
@@ -574,6 +585,35 @@ fn profile(checker: &mut Checker, profile: &Profile) -> String {
             format!("({text}, {position})")
         })
         .collect();
+    if hero.showcase.0.len() != 4 {
+        checker.error(
+            "Profile > hero background projects",
+            "needs exactly four: left screen, right screen, left inner, right inner",
+        );
+    }
+    let showcase: Vec<String> = hero
+        .showcase
+        .0
+        .iter()
+        .enumerate()
+        .map(|(index, item)| {
+            let at = format!("Profile > hero background > {}", label(&item.label, index));
+            if !SHOWCASE_SHAPES.contains(&item.shape.0.as_str()) {
+                checker.error(
+                    &format!("{at} > shape"),
+                    format!("must be one of {}", SHOWCASE_SHAPES.join(", ")),
+                );
+            }
+            let image = checker.file(&format!("{at} > image"), &item.image, Kind::Image);
+            format!(
+                "Showcase {{ label: {}, image: {}, href: {}, shape: {} }}",
+                checker.text(&format!("{at} > label"), &item.label, true),
+                lit(image.as_deref().unwrap_or_default()),
+                checker.project_link(&format!("{at} > link"), &item.url),
+                lit(&item.shape.0)
+            )
+        })
+        .collect();
     let mut bubble = vec![format!("({}, \"\")", lit("hi, i'm Madrid."))];
     for (index, line) in hero.bubble.0.iter().enumerate() {
         let at = format!("Profile > speech bubble {}", index + 1);
@@ -741,6 +781,11 @@ fn profile(checker: &mut Checker, profile: &Profile) -> String {
         "pub const HERO_LABELS: (&str, &str) = ({}, {});",
         checker.text("Profile > hero left label", &hero.label_left, true),
         checker.text("Profile > hero right label", &hero.label_right, true)
+    );
+    let _ = writeln!(
+        out,
+        "pub const HERO_SHOWCASE: &[Showcase] = &[{}];",
+        showcase.join(", ")
     );
     let _ = writeln!(
         out,

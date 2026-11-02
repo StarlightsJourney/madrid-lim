@@ -9,6 +9,32 @@
     "summary": "Madrid Lim. Builder, data science student, maps and GPX tinkerer, ultra runner.",
     "label_left": "Data Science @ NUS",
     "label_right": "builds tools / runs ultras",
+    "showcase": [
+      {
+        "label": "Ka-teng live app",
+        "image": "assets/work/kateng.webp",
+        "url": "https://starlightsjourney.github.io/Ka-teng/",
+        "shape": "screen"
+      },
+      {
+        "label": "HillGPX",
+        "image": "assets/work/hillgpx.webp",
+        "url": "https://hillgpx.com",
+        "shape": "screen"
+      },
+      {
+        "label": "Linguini live app",
+        "image": "assets/work/linguini-app.webp",
+        "url": "https://linguini-navy.vercel.app/",
+        "shape": "phone"
+      },
+      {
+        "label": "Tiny Japanese LM report",
+        "image": "assets/work/tiny-japanese-lm-report.webp",
+        "url": "assets/docs/tiny-japanese-lm-report.pdf",
+        "shape": "page"
+      }
+    ],
     "bubble": [
       { "first": "next run:", "second": "Singapore to KL in Jan." },
       { "first": "Sheng goes", "second": "public this year." },
@@ -51,8 +77,8 @@
       { "name": "Singapore loop for SHINE", "distance": "202.54 km", "upcoming": false },
       { "name": "BUS Backyard Ultra, third", "distance": "83.52 km", "upcoming": false },
       { "name": "Rinjani, first race", "distance": "61.27 km", "upcoming": false },
-      { "name": "CULTRA, highest placing Singaporean", "distance": "60 km", "upcoming": false },
-      { "name": "Maclehose Warm-up, 29th of 99", "distance": "55 km", "upcoming": false }
+      { "name": "Maclehose Warm-up, 29th of 99", "distance": "59.84 km", "upcoming": false },
+      { "name": "CULTRA, highest placing Singaporean", "distance": "58.65 km", "upcoming": false }
     ]
   },
   "contact": {
