@@ -174,27 +174,26 @@ content:
           - { name: label_right, label: Right tilted label, component: line }
           - name: showcase
             label: Background projects
-            description: "Three to eight clickable projects that drift right to left behind the photo, in this order. Use things you built, not runs, and each project once."
+            description: "Things you built, drifting behind the photo. Wide screenshots (web apps) move right to left; papers and phone shots move left to right, in a lower row. Each project once, no runs."
             type: object
-            list: { min: 3, max: 8, collapsible: { summary: "{label}" } }
+            list: { min: 2, max: 10, collapsible: { summary: "{label}" } }
             fields:
               - { name: label, label: Name, component: line, description: "Shown on the item's tag, for example HillGPX." }
               - { name: image, label: Image, component: photo, required: true }
               - name: url
                 label: Link
                 type: string
-                required: true
-                description: "A full https:// link, or a PDF on this site such as assets/docs/report.pdf, which downloads."
-                pattern: { regex: "^(https://\\S+|/?assets/docs/\\S+\\.pdf)$", message: "Paste a full https:// link or an assets/docs/ PDF path." }
+                description: "Optional. A full https:// link, or a PDF on this site such as assets/docs/report.pdf, which downloads. Leave empty for private work; it shows as in progress."
+                pattern: { regex: "^(|https://\\S+|/?assets/docs/\\S+\\.pdf)$", message: "Paste a full https:// link, an assets/docs/ PDF path, or leave it empty." }
               - name: shape
                 label: Shape
                 type: select
                 required: true
                 options:
                   values:
-                    - { name: screen, label: Wide screenshot }
-                    - { name: phone, label: Phone screenshot }
-                    - { name: page, label: Paper page }
+                    - { name: screen, label: "Wide screenshot (moves right to left)" }
+                    - { name: page, label: "Paper or report page (moves left to right)" }
+                    - { name: phone, label: "Phone screenshot (moves left to right)" }
           - name: bubble
             label: Speech bubble lines
             description: "Shown in turn when someone taps the bubble, between the greeting and the last tap."
