@@ -23,16 +23,10 @@
     "label_right": "builds tools / runs ultras",
     "showcase": [
       {
-        "label": "Ka-teng",
-        "image": "assets/work/kateng.webp",
-        "url": "https://starlightsjourney.github.io/Ka-teng/",
-        "shape": "screen"
-      },
-      {
         "label": "Linguini",
-        "image": "assets/work/linguini-app.webp",
+        "image": "assets/work/linguini-landing.webp",
         "url": "https://linguini-navy.vercel.app/",
-        "shape": "phone"
+        "shape": "screen"
       },
       {
         "label": "HillGPX",
@@ -41,16 +35,28 @@
         "shape": "screen"
       },
       {
-        "label": "Tiny Japanese LM report",
-        "image": "assets/work/tiny-japanese-lm-report.webp",
-        "url": "assets/docs/tiny-japanese-lm-report.pdf",
-        "shape": "page"
+        "label": "Ka-teng",
+        "image": "assets/work/kateng.webp",
+        "url": "https://starlightsjourney.github.io/Ka-teng/",
+        "shape": "screen"
+      },
+      {
+        "label": "Sheng",
+        "image": "assets/work/sheng.webp",
+        "url": "",
+        "shape": "screen"
       },
       {
         "label": "CivicTwin",
         "image": "assets/work/civictwin.webp",
         "url": "https://github.com/Armaan-king/CivicTwin",
         "shape": "screen"
+      },
+      {
+        "label": "Tiny Japanese LM report",
+        "image": "assets/work/tiny-japanese-lm-report.webp",
+        "url": "assets/docs/tiny-japanese-lm-report.pdf",
+        "shape": "page"
       }
     ],
     "bubble": [

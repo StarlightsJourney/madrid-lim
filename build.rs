@@ -585,11 +585,20 @@ fn profile(checker: &mut Checker, profile: &Profile) -> String {
             format!("({text}, {position})")
         })
         .collect();
-    if !(3..=8).contains(&hero.showcase.0.len()) {
+    if !(2..=10).contains(&hero.showcase.0.len()) {
         checker.error(
             "Profile > hero background projects",
-            "needs between three and eight projects",
+            "needs between two and ten projects",
         );
+    }
+    let mut showcase_names = HashSet::new();
+    for item in &hero.showcase.0 {
+        if !showcase_names.insert(item.label.0.to_lowercase()) {
+            checker.error(
+                "Profile > hero background projects",
+                format!("{} appears twice. Show each project once", item.label.0),
+            );
+        }
     }
     let showcase: Vec<String> = hero
         .showcase
@@ -605,7 +614,11 @@ fn profile(checker: &mut Checker, profile: &Profile) -> String {
                 );
             }
             let image = checker.file(&format!("{at} > image"), &item.image, Kind::Image);
-            let href = checker.project_link(&format!("{at} > link"), &item.url);
+            let href = if item.url.0.is_empty() {
+                lit("")
+            } else {
+                checker.project_link(&format!("{at} > link"), &item.url)
+            };
             let local = item.url.0.trim_start_matches('/');
             let size = if local.starts_with("assets/") {
                 checker.size(local)

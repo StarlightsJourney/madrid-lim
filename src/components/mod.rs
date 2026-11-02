@@ -13,7 +13,7 @@ use web_sys::{
 use crate::content::{
     ABOUT_STATEMENT, BUBBLE_LINES, CONTACT_INTRO, CONTACTS, DOCUMENTS, EDUCATION, EMAIL,
     EXPERIENCE, HERO_LABELS, HERO_SHOWCASE, HERO_SUMMARY, HERO_WORDS, PROJECTS, Project, RACES,
-    RUNS, RUNS_INTRO, RunPost, Slide, TECHNOLOGIES, TICKETS, TOPICS, WORK_INTRO,
+    RUNS, RUNS_INTRO, RunPost, Showcase, Slide, TECHNOLOGIES, TICKETS, TOPICS, WORK_INTRO,
 };
 
 type KeyListener = Closure<dyn FnMut(KeyboardEvent)>;
@@ -184,6 +184,41 @@ fn PinIcon() -> impl IntoView {
 }
 
 #[component]
+fn ShowcaseTrack(class: &'static str, items: Vec<&'static Showcase>) -> impl IntoView {
+    let count = items.len();
+    (count > 0).then(|| view! {
+        <div class=format!("orbit-track {class}") style:--count=count.to_string()>
+            {items.into_iter().enumerate().map(|(index, item)| {
+                let shot = if item.href.is_empty() {
+                    view! {
+                        <div class="shot" role="img" aria-label=format!("{}, in progress", item.label)>
+                            <img src=item.image alt="" decoding="async" />
+                            <span class="shot-tag" aria-hidden="true">{format!("{} \u{b7} in progress", item.label)}</span>
+                        </div>
+                    }.into_any()
+                } else if item.href.starts_with("https://") {
+                    view! {
+                        <a class="shot" href=item.href target="_blank" rel="noopener noreferrer" aria-label=format!("{}, opens in a new tab", item.label)>
+                            <img src=item.image alt="" decoding="async" />
+                            <span class="shot-tag" aria-hidden="true">{format!("\u{2197} {}", item.label)}</span>
+                        </a>
+                    }.into_any()
+                } else {
+                    let file = item.href.rsplit('/').next().unwrap_or("document.pdf");
+                    view! {
+                        <a class="shot download" href=item.href download=file aria-label=format!("Download {}, PDF, {}", item.label, item.size)>
+                            <img src=item.image alt="" decoding="async" />
+                            <span class="shot-tag" aria-hidden="true">"\u{2193} download"<span class="tag-extra">{format!(" PDF \u{b7} {}", item.size)}</span></span>
+                        </a>
+                    }.into_any()
+                };
+                view! { <div class=format!("orbit {}", item.shape) style:--i=index.to_string()>{shot}</div> }
+            }).collect_view()}
+        </div>
+    })
+}
+
+#[component]
 fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
     let (word, set_word) = signal(0usize);
     let (line, set_line) = signal(0usize);
@@ -212,25 +247,9 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                     }
                 }}
             </h1>
-            <div class="hero-stage" style:--count=HERO_SHOWCASE.len().to_string()>
-                {HERO_SHOWCASE.iter().enumerate().map(|(index, item)| {
-                    let local = !item.href.starts_with("https://");
-                    let file = item.href.rsplit('/').next().unwrap_or("document.pdf");
-                    let (label, tag) = if local {
-                        (format!("Download {}, PDF, {}", item.label, item.size), view! { "\u{2193} download"<span class="tag-extra">{format!(" PDF \u{b7} {}", item.size)}</span> }.into_any())
-                    } else {
-                        (format!("{}, opens in a new tab", item.label), format!("\u{2197} {}", item.label).into_any())
-                    };
-                    view! {
-                        <div class=format!("orbit {}", item.shape) style:--i=index.to_string()>
-                            <a class="shot" class:download=local href=item.href aria-label=label
-                                target=(!local).then_some("_blank") rel=(!local).then_some("noopener noreferrer") download=local.then_some(file)>
-                                <img src=item.image alt="" decoding="async" />
-                                <span class="shot-tag" aria-hidden="true">{tag}</span>
-                            </a>
-                        </div>
-                    }
-                }).collect_view()}
+            <div class="hero-stage">
+                <ShowcaseTrack class="track-landscape" items=HERO_SHOWCASE.iter().filter(|item| item.shape == "screen").collect() />
+                <ShowcaseTrack class="track-portrait" items=HERO_SHOWCASE.iter().filter(|item| item.shape != "screen").collect() />
             </div>
             <figure class="hero-figure">
                 <img src="assets/media/hero.webp" width="720" height="1406" alt="Madrid Lim smiling and making a peace sign" fetchpriority="high" decoding="async" />
