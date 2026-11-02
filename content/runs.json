@@ -4,9 +4,18 @@
     "place": "Mount Rinjani, Lombok",
     "date": "2026-05-02",
     "stats": [
-      { "value": "61.27 km", "label": "distance" },
-      { "value": "19:47:29", "label": "time" },
-      { "value": "5,287 m", "label": "gain" }
+      {
+        "value": "61.27 km",
+        "label": "distance"
+      },
+      {
+        "value": "19:47:29",
+        "label": "time"
+      },
+      {
+        "value": "5,287 m",
+        "label": "gain"
+      }
     ],
     "note": "First race.",
     "slides": [
@@ -24,16 +33,25 @@
         "description": "COROS summary. 61.27 km, 19:47:29 activity time, 5,287 m elevation gain."
       }
     ],
-    "gpx": "assets/gpx/north-lombok-trail-run-2026-05-02.gpx"
+    "gpx": "/assets/gpx/north-lombok-trail-run-2026-05-02.gpx"
   },
   {
     "title": "CULTRA 60 km",
     "place": "Cameron Highlands",
     "date": "2026-07-18",
     "stats": [
-      { "value": "58.65 km", "label": "distance" },
-      { "value": "9:21:10", "label": "time" },
-      { "value": "2,438 m", "label": "gain" }
+      {
+        "value": "58.65 km",
+        "label": "distance"
+      },
+      {
+        "value": "9:21:10",
+        "label": "time"
+      },
+      {
+        "value": "2,438 m",
+        "label": "gain"
+      }
     ],
     "note": "Highest placing Singaporean in the 60 km event.",
     "slides": [
@@ -51,43 +69,25 @@
         "description": "COROS summary. 58.65 km, 9:21:10 activity time, 2,438 m elevation gain."
       }
     ],
-    "gpx": "assets/gpx/cameron-highlands-trail-run-2026-07-18.gpx"
-  },
-  {
-    "title": "202.54 km around Singapore",
-    "place": "Singapore",
-    "date": "2026-08-21",
-    "stats": [
-      { "value": "202.54 km", "label": "distance" },
-      { "value": "46:46:23", "label": "time" },
-      { "value": "$850", "label": "for SHINE" }
-    ],
-    "note": "One loop of the island, raising $850 for SHINE.",
-    "slides": [
-      {
-        "type": "video",
-        "src": "assets/media/sg202-flyover.mp4",
-        "poster": "assets/media/sg202-flyover-poster.webp",
-        "label": "Route flyover, 202.54 km around Singapore",
-        "description": "COROS flyover of the full 202.54 km loop around Singapore."
-      },
-      {
-        "type": "image",
-        "src": "assets/media/sg202.webp",
-        "alt": "COROS summary for the 202.54 km Singapore run",
-        "description": "COROS summary. 202.54 km in 46:46:23 activity time."
-      }
-    ],
-    "gpx": "assets/gpx/singapore-202km-run-2026-08-21.gpx"
+    "gpx": "/assets/gpx/cameron-highlands-trail-run-2026-07-18.gpx"
   },
   {
     "title": "BUS Backyard Ultra",
     "place": "Singapore",
     "date": "2026-08-07",
     "stats": [
-      { "value": "83.52 km", "label": "distance" },
-      { "value": "12", "label": "loops" },
-      { "value": "3rd", "label": "place" }
+      {
+        "value": "83.52 km",
+        "label": "distance"
+      },
+      {
+        "value": "12",
+        "label": "loops"
+      },
+      {
+        "value": "3rd",
+        "label": "place"
+      }
     ],
     "note": "Third place in a backyard format race by One More Lap.",
     "slides": [
@@ -111,6 +111,42 @@
         "description": "At the Backyard Ultra Simulator by One More Lap."
       }
     ],
-    "gpx": ""
+    "gpx": "/assets/gpx/singapore-202km-run-2026-08-21.gpx"
+  },
+  {
+    "title": "202.54 km around Singapore",
+    "place": "Singapore",
+    "date": "2026-08-21",
+    "stats": [
+      {
+        "value": "202.54 km",
+        "label": "distance"
+      },
+      {
+        "value": "46:46:23",
+        "label": "time"
+      },
+      {
+        "value": "$850",
+        "label": "for SHINE"
+      }
+    ],
+    "note": "One loop of the island, raising $850 for SHINE.",
+    "slides": [
+      {
+        "type": "video",
+        "src": "assets/media/sg202-flyover.mp4",
+        "poster": "assets/media/sg202-flyover-poster.webp",
+        "label": "Route flyover, 202.54 km around Singapore",
+        "description": "COROS flyover of the full 202.54 km loop around Singapore."
+      },
+      {
+        "type": "image",
+        "src": "assets/media/sg202.webp",
+        "alt": "COROS summary for the 202.54 km Singapore run",
+        "description": "COROS summary. 202.54 km in 46:46:23 activity time."
+      }
+    ],
+    "gpx": "/assets/gpx/singapore-202km-run-2026-08-21.gpx"
   }
 ]
