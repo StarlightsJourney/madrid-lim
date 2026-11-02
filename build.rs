@@ -585,10 +585,10 @@ fn profile(checker: &mut Checker, profile: &Profile) -> String {
             format!("({text}, {position})")
         })
         .collect();
-    if hero.showcase.0.len() != 4 {
+    if !(3..=8).contains(&hero.showcase.0.len()) {
         checker.error(
             "Profile > hero background projects",
-            "needs exactly four: left screen, right screen, left inner, right inner",
+            "needs between three and eight projects",
         );
     }
     let showcase: Vec<String> = hero
@@ -605,12 +605,19 @@ fn profile(checker: &mut Checker, profile: &Profile) -> String {
                 );
             }
             let image = checker.file(&format!("{at} > image"), &item.image, Kind::Image);
+            let href = checker.project_link(&format!("{at} > link"), &item.url);
+            let local = item.url.0.trim_start_matches('/');
+            let size = if local.starts_with("assets/") {
+                checker.size(local)
+            } else {
+                String::new()
+            };
             format!(
-                "Showcase {{ label: {}, image: {}, href: {}, shape: {} }}",
+                "Showcase {{ label: {}, image: {}, href: {href}, shape: {}, size: {} }}",
                 checker.text(&format!("{at} > label"), &item.label, true),
                 lit(image.as_deref().unwrap_or_default()),
-                checker.project_link(&format!("{at} > link"), &item.url),
-                lit(&item.shape.0)
+                lit(&item.shape.0),
+                lit(&size)
             )
         })
         .collect();
