@@ -63,7 +63,7 @@ content:
     format: json
     list: true
     fields:
-      - { name: title, label: Title, component: line }
+      - { name: title, label: Title, component: line, description: "Posts are shown oldest first by date automatically, so there is no need to reorder them. Add new runs at the end." }
       - { name: place, label: Place, component: line, description: "Shown next to the avatar, for example Mount Rinjani, Lombok." }
       - name: date
         label: Date
@@ -140,7 +140,12 @@ content:
         list: true
         fields:
           - { name: label, label: Label, component: line }
-          - { name: url, label: URL, component: link }
+          - name: url
+            label: URL
+            type: string
+            required: true
+            description: "A full https:// link, or a PDF on this site such as assets/docs/report.pdf (upload it under Downloads first)."
+            pattern: { regex: "^(https://\\S+|/?assets/docs/\\S+\\.pdf)$", message: "Paste a full https:// link or an assets/docs/ PDF path." }
       - { name: image, label: Screenshot, component: photo, description: "Optional. Without one, a lime card with the name is shown." }
 
   - name: profile

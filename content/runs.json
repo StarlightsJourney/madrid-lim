@@ -33,7 +33,7 @@
         "description": "COROS summary. 61.27 km, 19:47:29 activity time, 5,287 m elevation gain."
       }
     ],
-    "gpx": "/assets/gpx/north-lombok-trail-run-2026-05-02.gpx"
+    "gpx": "assets/gpx/north-lombok-trail-run-2026-05-02.gpx"
   },
   {
     "title": "CULTRA 60 km",
@@ -69,7 +69,7 @@
         "description": "COROS summary. 58.65 km, 9:21:10 activity time, 2,438 m elevation gain."
       }
     ],
-    "gpx": "/assets/gpx/cameron-highlands-trail-run-2026-07-18.gpx"
+    "gpx": "assets/gpx/cameron-highlands-trail-run-2026-07-18.gpx"
   },
   {
     "title": "BUS Backyard Ultra",
@@ -111,7 +111,7 @@
         "description": "At the Backyard Ultra Simulator by One More Lap."
       }
     ],
-    "gpx": "/assets/gpx/singapore-202km-run-2026-08-21.gpx"
+    "gpx": ""
   },
   {
     "title": "202.54 km around Singapore",
@@ -147,6 +147,36 @@
         "description": "COROS summary. 202.54 km in 46:46:23 activity time."
       }
     ],
-    "gpx": "/assets/gpx/singapore-202km-run-2026-08-21.gpx"
+    "gpx": "assets/gpx/singapore-202km-run-2026-08-21.gpx"
+  },
+  {
+    "title": "Maclehose Trail Warm-up Race",
+    "place": "Hong Kong",
+    "date": "2026-10-10",
+    "stats": [
+      {
+        "value": "59.84 km",
+        "label": "distance"
+      },
+      {
+        "value": "12:20:04",
+        "label": "time"
+      },
+      {
+        "value": "3,588 m",
+        "label": "gain"
+      }
+    ],
+    "note": "Big Double Au, 55 km solo. 29th of 99 overall, 23rd of 82 men and second in my age group.",
+    "slides": [
+      {
+        "type": "video",
+        "src": "assets/media/maclehose-flyover.mp4",
+        "poster": "assets/media/maclehose-flyover-poster.webp",
+        "label": "Route flyover, Maclehose Trail Warm-up Race",
+        "description": "COROS flyover of the full route across the New Territories. 59.84 km and 3,588 m elevation gain on the watch."
+      }
+    ],
+    "gpx": "assets/gpx/maclehose-trail-warm-up-race-2026-10-10.gpx"
   }
 ]
