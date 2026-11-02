@@ -12,8 +12,8 @@ use web_sys::{
 
 use crate::content::{
     ABOUT_STATEMENT, BUBBLE_LINES, CONTACT_INTRO, CONTACTS, DOCUMENTS, EDUCATION, EMAIL,
-    EXPERIENCE, HERO_LABELS, HERO_SHOWCASE, HERO_SUMMARY, HERO_WORDS, PROJECTS, Project, RACES,
-    RUNS, RUNS_INTRO, RunPost, Showcase, Slide, TECHNOLOGIES, TICKETS, TOPICS, WORK_INTRO,
+    EXPERIENCE, HERO_SHOWCASE, HERO_SUMMARY, HERO_WORDS, PROJECTS, Project, RACES, RUNS,
+    RUNS_INTRO, RunPost, Showcase, Slide, TECHNOLOGIES, TICKETS, TOPICS, WORK_INTRO,
 };
 
 type KeyListener = Closure<dyn FnMut(KeyboardEvent)>;
@@ -269,8 +269,6 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                     </button>
                 </figcaption>
             </figure>
-            <p class="tilt tilt-left">{HERO_LABELS.0}</p>
-            <p class="tilt tilt-right">{HERO_LABELS.1}</p>
         </section>
     }
 }

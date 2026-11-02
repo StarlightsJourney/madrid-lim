@@ -125,8 +125,6 @@ struct Profile {
 struct Hero {
     words: List<HeroWord>,
     summary: Text,
-    label_left: Text,
-    label_right: Text,
     showcase: List<Showcase>,
     bubble: List<Bubble>,
 }
@@ -795,12 +793,6 @@ fn profile(checker: &mut Checker, profile: &Profile) -> String {
         out,
         "pub const HERO_SUMMARY: &str = {};",
         checker.text("Profile > hero summary", &hero.summary, true)
-    );
-    let _ = writeln!(
-        out,
-        "pub const HERO_LABELS: (&str, &str) = ({}, {});",
-        checker.text("Profile > hero left label", &hero.label_left, true),
-        checker.text("Profile > hero right label", &hero.label_right, true)
     );
     let _ = writeln!(
         out,
