@@ -49,7 +49,7 @@ a { color: inherit; }
 .orbit-track { position: absolute; inset: 0; --dur: max(26s, calc(var(--count) * 11s)); }
 .orbit { --extra: max(0px, calc((var(--count) * var(--w) * 1.15 - 100vw - var(--w)) / 2)); position: absolute; left: 0; width: var(--w); animation: orbit var(--dur) linear infinite; animation-delay: calc(var(--dur) * var(--i) / var(--count) * -1); }
 .track-landscape .orbit { top: 38%; }
-.track-portrait .orbit { top: 61%; animation-direction: reverse; }
+.track-portrait .orbit { top: 76%; animation-direction: reverse; }
 .orbit.screen { --w: clamp(150px, 20vw, 300px); }
 .orbit.phone { --w: clamp(70px, 8vw, 130px); }
 .orbit.page { --w: clamp(120px, 13vw, 200px); }
@@ -87,9 +87,6 @@ a { color: inherit; }
 .bubble-text { display: inline-block; animation: bubble-in 350ms var(--ease) both; }
 @keyframes bubble-in { from { opacity: 0; translate: 0 6px; } }
 @keyframes pop { from { opacity: 0; scale: .6; } }
-.tilt { position: absolute; z-index: 3; top: 76%; margin: 0; padding: 4px 12px; background: var(--accent); color: var(--accent-ink); font-size: clamp(14px, 1.5vw, 22px); font-weight: 900; letter-spacing: .02em; text-transform: uppercase; }
-.tilt-left { left: 7vw; rotate: -5deg; }
-.tilt-right { right: 7vw; rotate: 5deg; }
 
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
@@ -359,7 +356,7 @@ a { color: inherit; }
 }
 @media (max-width: 1100px) {
   .track-landscape .orbit { top: 38%; }
-  .track-portrait .orbit { top: 63%; }
+  .track-portrait .orbit { top: 76%; }
   .orbit.screen { --w: 32vw; }
   .orbit.phone { --w: 14vw; }
   .orbit.page { --w: 18vw; }
@@ -374,13 +371,10 @@ a { color: inherit; }
   .hero-word { flex-direction: column; align-items: center; }
   .hero-bubble { font-size: 13px; }
   .track-landscape .orbit { top: 33%; }
-  .track-portrait .orbit { top: 56%; }
+  .track-portrait .orbit { top: 74%; }
   .orbit.screen { --w: 46vw; }
   .orbit.phone { --w: max(26vw, 92px); }
   .orbit.page { --w: max(34vw, 112px); }
-  .tilt { font-size: 12px; }
-  .tilt-left { top: auto; bottom: 142px; left: 12px; }
-  .tilt-right { top: auto; bottom: 90px; right: 12px; }
   .work-row { grid-template-columns: 30px minmax(0, 1fr) 32px; gap: 10px; padding: 16px 4px; }
   .work-status { display: none; }
   .work-row:hover { padding-left: 4px; }

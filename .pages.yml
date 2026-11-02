@@ -170,8 +170,6 @@ content:
                 description: "Which letter is drawn as an outline, counting from 1 and skipping spaces."
                 options: { min: 1 }
           - { name: summary, label: Screen reader summary, component: paragraph }
-          - { name: label_left, label: Left tilted label, component: line }
-          - { name: label_right, label: Right tilted label, component: line }
           - name: showcase
             label: Background projects
             description: "Things you built, drifting behind the photo. Wide screenshots (web apps) move right to left; papers and phone shots move left to right, in a lower row. Each project once, no runs."
