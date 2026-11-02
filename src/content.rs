@@ -55,6 +55,7 @@ pub struct Showcase {
     pub image: &'static str,
     pub href: &'static str,
     pub shape: &'static str,
+    pub size: &'static str,
 }
 
 pub struct Ticket {

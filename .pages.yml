@@ -174,11 +174,11 @@ content:
           - { name: label_right, label: Right tilted label, component: line }
           - name: showcase
             label: Background projects
-            description: "Exactly four clickable projects behind the photo, in order: left screen, right screen, left inner, right inner. Only the two inner ones show on phones. Use things you built, not runs."
+            description: "Three to eight clickable projects that drift right to left behind the photo, in this order. Use things you built, not runs, and each project once."
             type: object
-            list: { min: 4, max: 4, collapsible: { summary: "{label}" } }
+            list: { min: 3, max: 8, collapsible: { summary: "{label}" } }
             fields:
-              - { name: label, label: Name, component: line, description: "Read out by screen readers, for example HillGPX." }
+              - { name: label, label: Name, component: line, description: "Shown on the item's tag, for example HillGPX." }
               - { name: image, label: Image, component: photo, required: true }
               - name: url
                 label: Link

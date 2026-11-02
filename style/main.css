@@ -45,22 +45,33 @@ a { color: inherit; }
 .ch:nth-child(8) { animation-delay: 245ms; } .ch:nth-child(9) { animation-delay: 280ms; } .ch:nth-child(10) { animation-delay: 315ms; }
 @keyframes ch-in { from { opacity: 0; transform: translateY(.45em) rotate(10deg); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
 
-.hero-stage { position: absolute; z-index: 0; inset: 0; pointer-events: none; }
-.shot { position: absolute; display: block; overflow: hidden; pointer-events: auto; width: min(25vw, 380px); aspect-ratio: 16 / 10; border-radius: 16px; box-shadow: 0 30px 60px -30px var(--shadow); filter: blur(2px) grayscale(.35); opacity: .5; transition: translate 900ms var(--ease), rotate 900ms var(--ease), filter 600ms, opacity 600ms; }
-.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.shot.phone { width: min(11.5vw, 176px); aspect-ratio: 9 / 19; border-radius: 22px; }
-.shot.page { width: min(14vw, 210px); aspect-ratio: 17 / 22; border-radius: 6px; }
-.shot:hover { opacity: 1; }
-.shot:focus-visible { filter: none; opacity: 1; outline: 3px solid var(--focus); outline-offset: 4px; }
-.shot-1 { left: 3vw; top: 20%; rotate: -5deg; }
-.shot-2 { right: 3vw; top: 20%; rotate: 5deg; }
-.shot-3 { left: 25.5vw; top: 33%; rotate: -3deg; }
-.shot-5 { right: 25.5vw; top: 33%; rotate: 3deg; }
-.hero:hover .shot { filter: none; opacity: .92; }
-.hero:hover .shot-1 { translate: -1vw -1vh; rotate: -7deg; }
-.hero:hover .shot-2 { translate: 1vw -1vh; rotate: 7deg; }
-.hero:hover .shot-3 { translate: -1.5vw -2vh; rotate: -5deg; }
-.hero:hover .shot-5 { translate: 1.5vw -2vh; rotate: 5deg; }
+.hero-stage { position: absolute; z-index: 0; inset: 0; pointer-events: none; --dur: 52s; }
+.orbit { position: absolute; left: 0; top: 46%; width: var(--w); animation: orbit var(--dur) linear infinite; animation-delay: calc(var(--dur) * var(--i) / var(--count) * -1); }
+.orbit.screen { --w: clamp(150px, 23vw, 360px); }
+.orbit.phone { --w: clamp(70px, 9vw, 150px); }
+.orbit.page { --w: clamp(110px, 14vw, 220px); }
+@keyframes orbit {
+  0% { translate: 100vw calc(-50% + 5vh); scale: .6; opacity: 0; z-index: 1; }
+  10%, 90% { opacity: 1; }
+  25% { translate: calc(75vw - 25%) calc(-50% - 1vh); scale: .82; z-index: 2; }
+  50% { translate: calc(50vw - 50%) calc(-50% - 3vh); scale: 1; z-index: 4; }
+  75% { translate: calc(25vw - 75%) calc(-50% - 1vh); scale: .82; z-index: 2; }
+  100% { translate: -100% calc(-50% + 5vh); scale: .6; opacity: 0; z-index: 1; }
+}
+.shot { position: relative; display: block; overflow: hidden; pointer-events: auto; container-type: inline-size; border-radius: 14px; background: var(--card); box-shadow: 0 30px 60px -30px var(--shadow); text-decoration: none; transition: scale 450ms var(--ease), box-shadow 450ms; }
+.orbit.screen .shot { aspect-ratio: 16 / 10; }
+.orbit.phone .shot { aspect-ratio: 9 / 19; border-radius: 18px; }
+.orbit.page .shot { aspect-ratio: 17 / 22; border-radius: 6px; }
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; filter: blur(1.5px) grayscale(.3); opacity: .55; transition: filter 450ms, opacity 450ms; }
+.hero:hover .shot img { filter: none; opacity: .85; }
+.shot:hover, .shot:focus-visible { scale: 1.25; box-shadow: 0 40px 80px -30px var(--shadow); }
+.shot:hover img, .shot:focus-visible img { filter: none; opacity: 1; }
+.shot:focus-visible { outline-offset: 4px; }
+.hero-stage:has(.shot:hover, .shot:focus-visible) .orbit { animation-play-state: paused; }
+.orbit:has(.shot:hover, .shot:focus-visible) { z-index: 10 !important; }
+.shot-tag { position: absolute; left: 7px; bottom: 7px; max-width: calc(100% - 14px); padding: 4px 8px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 11px; font-weight: 800; line-height: 1.3; letter-spacing: .02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; box-shadow: 0 6px 16px rgb(0 0 0 / 25%); }
+.shot.download .shot-tag { background: var(--accent); color: var(--accent-ink); }
+@container (max-width: 190px) { .tag-extra { display: none; } }
 
 .hero-figure { position: absolute; z-index: 2; left: 50%; bottom: 0; height: var(--fig-h); aspect-ratio: 720 / 1406; margin: 0; translate: -50% 0; filter: drop-shadow(0 24px 30px var(--shadow)); }
 .hero-figure img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: bottom; transform-origin: 50% 100%; -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent); mask-image: linear-gradient(to bottom, #000 80%, transparent); animation: bob 6s ease-in-out infinite; transition: rotate 500ms var(--ease); }
@@ -343,6 +354,12 @@ a { color: inherit; }
   .about-figure { max-width: 360px; margin: 0 auto; }
   .about-columns { grid-template-columns: 1fr; gap: 32px; }
 }
+@media (max-width: 1100px) {
+  .orbit { top: 42%; }
+  .orbit.screen { --w: 34vw; }
+  .orbit.phone { --w: 15vw; }
+  .orbit.page { --w: 20vw; }
+}
 @media (max-width: 700px) {
   .pill-nav { gap: 0; padding: 0; }
   .pill-nav a { min-height: 44px; padding: 0 7px; font-size: 12px; letter-spacing: .02em; }
@@ -352,9 +369,10 @@ a { color: inherit; }
   .hero-title { inset-block-start: 80px; font-size: min(22vw, 150px); }
   .hero-word { flex-direction: column; align-items: center; }
   .hero-bubble { font-size: 13px; }
-  .shot-1, .shot-2 { display: none; }
-  .shot.phone, .shot.page { width: 26vw; top: 34%; }
-  .shot-3 { left: 4vw; } .shot-5 { right: 4vw; }
+  .orbit { top: 36%; }
+  .orbit.screen { --w: 46vw; }
+  .orbit.phone { --w: max(26vw, 92px); }
+  .orbit.page { --w: max(34vw, 112px); }
   .tilt { font-size: 12px; }
   .tilt-left { top: auto; bottom: 142px; left: 12px; }
   .tilt-right { top: auto; bottom: 90px; right: 12px; }
@@ -388,5 +406,6 @@ a { color: inherit; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; animation-delay: 0ms !important; transition-duration: .001ms !important; }
   .band-track, .hero-figure img, .ticket .route i { animation: none !important; }
+  .orbit { animation: none !important; left: calc((var(--i) + .5) / var(--count) * 100%); translate: -50% -50%; scale: .8; }
   .confetti { display: none; }
 }
