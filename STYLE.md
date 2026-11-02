@@ -27,7 +27,7 @@ Fixed, 64px, translucent with backdrop blur. Left: `ML` mark and location. Cente
 ### Hero
 - A giant Anton headline cycles through short role words every 2.6s with a staggered letter entrance. One letter per word is drawn as an outline.
 - A real background-removed photo of Madrid stands in the center, overlapping the headline, with a `hi, i'm Madrid.` speech bubble button.
-- Four real project screenshots sit behind the figure in a symmetric arrangement: a landscape shot at each outer edge and a phone shot on each side of the figure, with no overlap with the tilted labels. They are softly blurred and sharpen and spread slightly on hover. Phones only on mobile.
+- Four different things Madrid built sit behind the figure in a symmetric arrangement: a landscape shot at each outer edge and a phone shot or paper page on each side of the figure, with no overlap with the tilted labels. No run media and no project twice. Each one is a link: live sites and repositories open in a new tab, and a same-origin paper downloads. They are softly blurred and sharpen and spread slightly on hover or keyboard focus. Only the inner two on mobile.
 - Two tilted lime labels state education and focus.
 - Where supported, the headline, figure and screenshots respond to scroll through CSS scroll-driven animation only.
 

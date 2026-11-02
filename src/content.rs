@@ -50,6 +50,13 @@ pub struct Race {
     pub upcoming: bool,
 }
 
+pub struct Showcase {
+    pub label: &'static str,
+    pub image: &'static str,
+    pub href: &'static str,
+    pub shape: &'static str,
+}
+
 pub struct Ticket {
     pub style: &'static str,
     pub label: &'static str,

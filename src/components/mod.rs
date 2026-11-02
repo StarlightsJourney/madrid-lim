@@ -12,8 +12,8 @@ use web_sys::{
 
 use crate::content::{
     ABOUT_STATEMENT, BUBBLE_LINES, CONTACT_INTRO, CONTACTS, DOCUMENTS, EDUCATION, EMAIL,
-    EXPERIENCE, HERO_LABELS, HERO_SUMMARY, HERO_WORDS, PROJECTS, Project, RACES, RUNS, RUNS_INTRO,
-    RunPost, Slide, TECHNOLOGIES, TICKETS, TOPICS, WORK_INTRO,
+    EXPERIENCE, HERO_LABELS, HERO_SHOWCASE, HERO_SUMMARY, HERO_WORDS, PROJECTS, Project, RACES,
+    RUNS, RUNS_INTRO, RunPost, Slide, TECHNOLOGIES, TICKETS, TOPICS, WORK_INTRO,
 };
 
 type KeyListener = Closure<dyn FnMut(KeyboardEvent)>;
@@ -212,11 +212,18 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                     }
                 }}
             </h1>
-            <div class="hero-stage" aria-hidden="true">
-                <img class="shot shot-1" src="assets/work/linguini-landing.webp" alt="" decoding="async" />
-                <img class="shot shot-2" src="assets/work/hillgpx.webp" alt="" decoding="async" />
-                <img class="shot shot-3 phone" src="assets/work/linguini-app.webp" alt="" decoding="async" />
-                <img class="shot shot-5 phone" src="assets/media/rinjani.webp" alt="" decoding="async" />
+            <div class="hero-stage">
+                {HERO_SHOWCASE.iter().zip(["shot-1", "shot-2", "shot-3", "shot-5"]).map(|(item, slot)| {
+                    let local = !item.href.starts_with("https://");
+                    let file = item.href.rsplit('/').next().unwrap_or("document.pdf");
+                    let label = if local { format!("Download {}, PDF", item.label) } else { format!("{}, opens in a new tab", item.label) };
+                    view! {
+                        <a class=format!("shot {slot} {}", item.shape) href=item.href aria-label=label
+                            target=(!local).then_some("_blank") rel=(!local).then_some("noopener noreferrer") download=local.then_some(file)>
+                            <img src=item.image alt="" decoding="async" />
+                        </a>
+                    }
+                }).collect_view()}
             </div>
             <figure class="hero-figure">
                 <img src="assets/media/hero.webp" width="720" height="1406" alt="Madrid Lim smiling and making a peace sign" fetchpriority="high" decoding="async" />
