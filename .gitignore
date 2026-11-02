@@ -5,3 +5,4 @@ dist/
 .vscode/
 *.db
 /tmp/
+assets/optimized/

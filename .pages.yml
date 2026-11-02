@@ -1,0 +1,262 @@
+# Pages CMS editor for the site content. Open https://app.pagescms.org and pick this repository.
+# Saving commits to main, and .github/workflows/deploy.yml checks and publishes the site.
+
+media:
+  - name: uploads
+    label: Photos and videos
+    input: assets/uploads
+    output: /assets/uploads
+    extensions: [jpg, jpeg, png, webp, heic, heif, mp4, mov, m4v]
+    rename: safe
+  - name: gpx
+    label: GPX routes
+    input: assets/gpx
+    output: /assets/gpx
+    extensions: [gpx]
+    rename: safe
+  - name: docs
+    label: Documents
+    input: assets/docs
+    output: /assets/docs
+    extensions: [pdf]
+    rename: safe
+
+settings:
+  commit:
+    identity: user
+    templates:
+      create: "Add {path} from the site editor"
+      update: "Update {path} from the site editor"
+      delete: "Remove {path} from the site editor"
+      rename: "Rename {oldPath} to {newPath} from the site editor"
+
+components:
+  line:
+    type: string
+    required: true
+    pattern:
+      regex: "^[^\u2012\u2013\u2014\u2015]*$"
+      message: "No long dashes. Use a comma, full stop or the word \"to\"."
+  paragraph:
+    type: text
+    required: true
+    pattern:
+      regex: "^[^\u2012\u2013\u2014\u2015]*$"
+      message: "No long dashes. Use a comma, full stop or the word \"to\"."
+  link:
+    type: string
+    required: true
+    pattern:
+      regex: "^https://\\S+$"
+      message: "Paste the full link, starting with https://"
+  photo:
+    type: image
+    options:
+      media: uploads
+      extensions: [jpg, jpeg, png, webp, heic, heif]
+
+content:
+  - name: runs
+    label: Runs
+    type: file
+    path: content/runs.json
+    format: json
+    list: true
+    fields:
+      - { name: title, label: Title, component: line }
+      - { name: place, label: Place, component: line, description: "Shown next to the avatar, for example Mount Rinjani, Lombok." }
+      - name: date
+        label: Date
+        type: date
+        default: ""
+        options:
+          format: yyyy-MM-dd
+      - name: stats
+        label: Stats
+        description: "Up to three, shown on one line under the title. For example 61.27 km / distance."
+        type: object
+        list: { max: 3 }
+        fields:
+          - { name: value, label: Value, component: line }
+          - { name: label, label: Label, component: line }
+      - name: note
+        label: Note
+        component: paragraph
+        required: false
+        description: "One short line shown when someone hovers the media."
+      - name: slides
+        label: Photos and videos
+        description: "Shown in this order. Photos and videos are resized and cleaned up automatically when the site publishes."
+        type: block
+        list: { collapsible: true }
+        blockKey: type
+        blocks:
+          - name: image
+            label: Photo
+            fields:
+              - { name: src, label: Photo, component: photo, required: true }
+              - { name: alt, label: Alt text, component: line, description: "Describe the photo for screen readers." }
+              - { name: description, label: Caption, component: paragraph, required: false }
+          - name: video
+            label: Video
+            fields:
+              - name: src
+                label: Video
+                type: file
+                required: true
+                options:
+                  media: uploads
+                  extensions: [mp4, mov, m4v]
+              - { name: poster, label: Poster image, component: photo, description: "Optional. Leave empty to use a frame from the video." }
+              - { name: label, label: Label, component: line, description: "Read out by screen readers, for example Route flyover, CULTRA 60 km." }
+              - { name: description, label: Caption, component: paragraph, required: false }
+      - name: gpx
+        label: GPX route
+        type: file
+        description: "Optional download. Files over about 25 MB may need to be added with git instead."
+        options:
+          media: gpx
+          extensions: [gpx]
+
+  - name: projects
+    label: Projects
+    type: file
+    path: content/projects.json
+    format: json
+    list: true
+    fields:
+      - { name: name, label: Name, component: line }
+      - { name: category, label: Category, component: line }
+      - { name: status, label: Status, component: line, description: "For example public, private, shipped, team." }
+      - { name: summary, label: Summary, component: paragraph }
+      - { name: role, label: Role, component: paragraph, description: "Team size and what you personally did." }
+      - { name: problem, label: Problem, component: paragraph }
+      - { name: built, label: What I built, component: paragraph }
+      - { name: stack, label: Stack, component: line, list: true }
+      - name: links
+        label: Links
+        description: "Leave empty for a private repository."
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, component: line }
+          - { name: url, label: URL, component: link }
+      - { name: image, label: Screenshot, component: photo, description: "Optional. Without one, a lime card with the name is shown." }
+
+  - name: profile
+    label: About, contact and extras
+    type: file
+    path: content/profile.json
+    format: json
+    fields:
+      - name: hero
+        label: Top of the page
+        type: object
+        fields:
+          - name: words
+            label: Cycling headline words
+            type: object
+            list: true
+            fields:
+              - { name: text, label: Word, component: line }
+              - name: outline
+                label: Outlined letter
+                type: number
+                description: "Which letter is drawn as an outline, counting from 1 and skipping spaces."
+                options: { min: 1 }
+          - { name: summary, label: Screen reader summary, component: paragraph }
+          - { name: label_left, label: Left tilted label, component: line }
+          - { name: label_right, label: Right tilted label, component: line }
+          - name: bubble
+            label: Speech bubble lines
+            description: "Shown in turn when someone taps the bubble, between the greeting and the last tap."
+            type: object
+            list: true
+            fields:
+              - { name: first, label: First line, component: line }
+              - { name: second, label: Second line, component: line, required: false }
+      - { name: technologies, label: Tech stack band, component: line, list: true }
+      - { name: work_intro, label: Selected work intro, component: paragraph }
+      - { name: runs_intro, label: Runs intro, component: paragraph }
+      - name: about
+        label: About
+        type: object
+        fields:
+          - { name: statement, label: Statement, component: paragraph, description: "Wrap highlighted phrases in stars, like *trail ultras*." }
+          - { name: education, label: Education, component: paragraph }
+          - name: experience
+            label: Experience
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, component: line, description: "Shown in bold, for example NUS content creator." }
+              - { name: text, label: Text, component: paragraph }
+          - name: races
+            label: Races
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Race, component: line }
+              - { name: distance, label: Distance, component: line }
+              - { name: upcoming, label: Next race, type: boolean, description: "Flags this race as upcoming." }
+      - name: contact
+        label: Contact
+        type: object
+        fields:
+          - { name: intro, label: What I am looking for, component: paragraph }
+          - name: email
+            label: Email
+            type: string
+            required: true
+            pattern: { regex: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", message: "Enter an email address." }
+          - name: topics
+            label: Contact form topics
+            type: object
+            list: true
+            fields:
+              - { name: subject, label: Email subject, component: line }
+              - { name: label, label: Shown in the form, component: line, description: "Completes the sentence I'm writing about ..." }
+          - name: socials
+            label: Profile links
+            type: object
+            list: true
+            fields:
+              - name: platform
+                label: Platform
+                type: select
+                required: true
+                options: { values: [GitHub, LinkedIn, Instagram] }
+              - { name: url, label: URL, component: link }
+      - name: documents
+        label: Downloads
+        description: "The first one is the resume button in the top bar. Upload only redacted, flattened PDFs with no phone number, student number or date of birth."
+        type: object
+        list: { min: 1 }
+        fields:
+          - { name: title, label: Title, component: line }
+          - { name: detail, label: Detail, component: line }
+          - name: file
+            label: PDF
+            type: file
+            required: true
+            options:
+              media: docs
+              extensions: [pdf]
+      - name: next_up
+        label: Secret Next up tickets
+        type: object
+        list: true
+        fields:
+          - name: style
+            label: Ticket style
+            type: select
+            required: true
+            options:
+              values:
+                - { name: bib, label: Race bib }
+                - { name: launch, label: Launch ticket }
+                - { name: pass, label: Boarding pass }
+          - { name: label, label: Small label, component: line }
+          - { name: title, label: Title, component: line, description: "For a boarding pass, write FROM > TO, like SIN > IND / AFR." }
+          - { name: text, label: Text, component: paragraph }
+          - { name: meta, label: Tags, component: line, list: { max: 2 } }

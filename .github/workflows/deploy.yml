@@ -22,6 +22,13 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@166cdcfd11aee3cb47222f9ddb555ce30ddb9659
         with:
           target: wasm32-unknown-unknown
+      - name: Install media tools for editor uploads
+        run: |
+          if find assets/uploads -type f ! -name '.*' | grep -q .; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends ffmpeg imagemagick libheif-examples libheif-plugin-libde265
+          fi
+      - run: cargo test
       - run: cargo install trunk --version 0.21.14 --locked
       - run: trunk build --release --public-url /madrid-lim/
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa

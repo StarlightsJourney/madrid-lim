@@ -8,9 +8,11 @@
 
 - Rust and Leptos CSR compile to WebAssembly with Trunk.
 - `src/main.rs` mounts the app.
-- `src/content.rs` is the source for visible project, run post, GPX and contact data.
+- `content/projects.json`, `content/runs.json` and `content/profile.json` are the source for visible project, run post, GPX, about, contact, document, hero word, speech bubble and Next up data. The owner edits them through Pages CMS (`.pages.yml`), so keep that config in sync with any schema change.
+- `build.rs` validates the JSON and generates the constants that `src/content.rs` includes. Validation errors are written for a non-technical editor.
 - `src/components/mod.rs` implements the mounted editorial page: top bar, hero, marquee, work list, run reel, about, contact footer and easter eggs.
 - Only `src/components/mod.rs` and `src/content.rs` are referenced by the mounted entry point. Old component, GL, and GPX parser files stay uncompiled and unlinked.
+- `assets/uploads/` holds editor uploads. `scripts/optimize-media.sh` runs as a Trunk pre-build hook and writes `assets/optimized/` (gitignored); `build.rs` maps upload paths to the optimized files. Do not add tests that pin content counts or values, since the owner changes content without an agent.
 - `style/tokens.css` contains the Anton font face and the exact light and dark tokens from `STYLE.md`.
 - `style/main.css` contains layout, motion and responsive styles.
 - `assets/profile.jpg` is the post avatar. `assets/media/` holds cutouts, post images and full-length flyovers with posters. `assets/work/` holds real project screenshots. `assets/gpx/` holds downloadable routes. `assets/docs/` holds the redacted resume and grades; never commit unredacted originals. `assets/fonts/` holds self-hosted Anton (OFL).

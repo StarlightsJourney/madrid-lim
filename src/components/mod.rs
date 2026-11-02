@@ -10,7 +10,11 @@ use web_sys::{
     Storage,
 };
 
-use crate::content::{CONTACTS, DOCUMENTS, EMAIL, PROJECTS, Project, RUNS, RunPost, Slide};
+use crate::content::{
+    ABOUT_STATEMENT, BUBBLE_LINES, CONTACT_INTRO, CONTACTS, DOCUMENTS, EDUCATION, EMAIL,
+    EXPERIENCE, HERO_LABELS, HERO_SUMMARY, HERO_WORDS, PROJECTS, Project, RACES, RUNS, RUNS_INTRO,
+    RunPost, Slide, TECHNOLOGIES, TICKETS, TOPICS, WORK_INTRO,
+};
 
 type KeyListener = Closure<dyn FnMut(KeyboardEvent)>;
 type ScrollListener = Closure<dyn FnMut(web_sys::Event)>;
@@ -25,26 +29,6 @@ thread_local! {
     static WORD_TIMER: RefCell<Option<Closure<dyn FnMut()>>> = const { RefCell::new(None) };
 }
 
-const HERO_WORDS: [(&str, usize); 4] = [
-    ("builder", 0),
-    ("data science", 5),
-    ("maps and gpx", 0),
-    ("ultra runner", 7),
-];
-
-const TECHNOLOGIES: [&str; 10] = [
-    "Rust",
-    "Python",
-    "Java",
-    "Swift",
-    "TypeScript",
-    "PostgreSQL",
-    "PostGIS",
-    "Supabase",
-    "MapLibre",
-    "DaVinci Resolve",
-];
-
 const SECTIONS: [(&str, &str); 4] = [
     ("work", "work"),
     ("runs", "runs"),
@@ -53,14 +37,6 @@ const SECTIONS: [(&str, &str); 4] = [
 ];
 
 const VISIBLE_PROJECTS: usize = 5;
-
-const BUBBLE_LINES: [(&str, &str); 5] = [
-    ("hi, i'm Madrid.", ""),
-    ("next race:", "BTS170 in Nov."),
-    ("Sheng goes", "public this year."),
-    ("India and Africa", "are on my map."),
-    ("one more tap...", ""),
-];
 
 const KONAMI: [&str; 10] = [
     "ArrowUp",
@@ -98,9 +74,9 @@ pub fn App() -> impl IntoView {
 
     install_easter_eggs(egg_open, open_egg, close_egg);
     install_scroll_spy(set_active);
-    web_sys::console::log_1(&JsValue::from_str(
-        "hi, fellow dev. try the konami code, or tap the speech bubble. say hi: e1398088@u.nus.edu",
-    ));
+    web_sys::console::log_1(&JsValue::from_str(&format!(
+        "hi, fellow dev. try the konami code, or tap the speech bubble. say hi: {EMAIL}"
+    )));
 
     Effect::new(move |_| {
         let theme = theme.get();
@@ -165,7 +141,7 @@ fn TopBar(
                 }).collect_view()}
             </nav>
             <div class="topbar-actions">
-                <a class="resume-pill" href=DOCUMENTS[0].href download="madrid-lim-resume.pdf"><span>"resume"</span><i aria-hidden="true">"\u{2193}"</i></a>
+                {DOCUMENTS.first().map(|resume| view! { <a class="resume-pill" href=resume.href download="madrid-lim-resume.pdf"><span>"resume"</span><i aria-hidden="true">"\u{2193}"</i></a> })}
                 <SocialLinks />
                 <button class="theme-toggle" aria-label=move || if theme.get() == "light" { "use dark theme" } else { "use light theme" } on:click=move |_| toggle_theme()>
                     <span aria-hidden="true">{move || if theme.get() == "light" { "\u{25D0}" } else { "\u{25D1}" }}</span>
@@ -179,7 +155,7 @@ fn TopBar(
 fn SocialLinks() -> impl IntoView {
     view! {
         <ul class="social-links">
-            {CONTACTS.into_iter().map(|(label, href)| view! {
+            {CONTACTS.iter().map(|&(label, href)| view! {
                 <li><a href=href target="_blank" rel="noopener noreferrer" aria-label=format!("{label}, opens in a new tab")><SocialIcon name=label /></a></li>
             }).collect_view()}
         </ul>
@@ -217,13 +193,13 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
     view! {
         <section id="top" class="hero" aria-labelledby="hero-title">
             <h1 id="hero-title" class="hero-title">
-                <span class="sr-only">"Madrid Lim. Builder, data science student, maps and GPX tinkerer, ultra runner."</span>
+                <span class="sr-only">{HERO_SUMMARY}</span>
                 {move || {
                     let (text, outlined) = HERO_WORDS[word.get()];
                     view! {
                         <span class="hero-word" aria-hidden="true">
                             {text.split(' ').enumerate().map(|(part_index, part)| {
-                                let offset = text.split(' ').take(part_index).map(|p| p.len() + 1).sum::<usize>();
+                                let offset = text.split(' ').take(part_index).map(|p| p.chars().count() + 1).sum::<usize>();
                                 view! {
                                     <span class="hero-line">
                                         {part.chars().enumerate().map(|(index, character)| view! {
@@ -260,8 +236,8 @@ fn Hero(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                     </button>
                 </figcaption>
             </figure>
-            <p class="tilt tilt-left">"Data Science @ NUS"</p>
-            <p class="tilt tilt-right">"builds tools / runs ultras"</p>
+            <p class="tilt tilt-left">{HERO_LABELS.0}</p>
+            <p class="tilt tilt-right">{HERO_LABELS.1}</p>
         </section>
     }
 }
@@ -276,13 +252,13 @@ fn Marquee() -> impl IntoView {
     };
     let tools = || {
         (0..4)
-            .flat_map(|_| TECHNOLOGIES)
+            .flat_map(|_| TECHNOLOGIES.iter().copied())
             .map(|name| view! { <span>{name}</span><i>"\u{2726}"</i> })
             .collect_view()
     };
     view! {
         <div class="marquee-block">
-            <ul class="sr-only" aria-label="Technology stack">{TECHNOLOGIES.into_iter().map(|name| view! { <li>{name}</li> }).collect_view()}</ul>
+            <ul class="sr-only" aria-label="Technology stack">{TECHNOLOGIES.iter().map(|&name| view! { <li>{name}</li> }).collect_view()}</ul>
             <div class="band band-accent" aria-hidden="true"><div class="band-track">{names()}</div><div class="band-track">{names()}</div></div>
             <div class="band band-ink" aria-hidden="true"><div class="band-track reverse">{tools()}</div><div class="band-track reverse">{tools()}</div></div>
         </div>
@@ -299,7 +275,7 @@ fn Work() -> impl IntoView {
         <section id="work" class="section work" aria-labelledby="work-title">
             <header class="section-head">
                 <h2 id="work-title" class="section-title">"Selected work"<sup>{format!("({:02})", PROJECTS.len())}</sup></h2>
-                <p class="section-lead">"Tools I designed, built and shipped. Open a project for my role, the problem and what I built. Private repositories are described, not linked."</p>
+                <p class="section-lead">{WORK_INTRO}</p>
             </header>
             <ol node_ref=list class="work-list"
                 on:pointermove=move |event: PointerEvent| {
@@ -365,7 +341,7 @@ fn WorkRow(
                             <div><dt>"problem"</dt><dd>{project.problem}</dd></div>
                             <div><dt>"what i built"</dt><dd>{project.built}</dd></div>
                         </dl>
-                        <ul class="chips" aria-label="Stack">{project.stack.split(", ").map(|item| view! { <li>{item}</li> }).collect_view()}</ul>
+                        <ul class="chips" aria-label="Stack">{project.stack.iter().map(|&item| view! { <li>{item}</li> }).collect_view()}</ul>
                         <div class="work-links">
                             {if project.links.is_empty() {
                                 view! { <span class="private-note">"private repository"</span> }.into_any()
@@ -413,7 +389,7 @@ fn Runs() -> impl IntoView {
         <section id="runs" class="section runs" aria-labelledby="runs-title">
             <header class="section-head">
                 <h2 id="runs-title" class="section-title">"Outside the screen"</h2>
-                <p class="section-lead">"Trail and road ultras. Flyovers play when they scroll into view. Hover a photo or video for the story, and download the route as GPX."</p>
+                <p class="section-lead">{RUNS_INTRO}</p>
                 <div class="reel-controls">
                     <button class="round-button" aria-label="Previous posts" on:click=move |_| scroll_reel(-1.0)><span aria-hidden="true">"\u{2190}"</span></button>
                     <button class="round-button" aria-label="Next posts" on:click=move |_| scroll_reel(1.0)><span aria-hidden="true">"\u{2192}"</span></button>
@@ -523,7 +499,7 @@ fn About() -> impl IntoView {
             <header class="section-head"><h2 id="about-title" class="section-title">"About"</h2></header>
             <div class="about-grid">
                 <p class="about-statement">
-                    "I study "<mark>"Data Science at NUS"</mark>" and build practical tools around "<mark>"maps, language"</mark>" and everyday problems. Away from a screen, I run "<mark>"trail ultras"</mark>". Open to internships, collaborations and useful problems."
+                    {ABOUT_STATEMENT.iter().map(|&(text, marked)| if marked { view! { <mark>{text}</mark> }.into_any() } else { text.into_any() }).collect_view()}
                 </p>
                 <figure class="about-figure">
                     <img src="assets/media/shoe.webp" width="640" height="642" alt="Madrid holding a trail shoe, wearing a running vest and cap" loading="lazy" decoding="async" />
@@ -533,24 +509,18 @@ fn About() -> impl IntoView {
             <div class="about-columns">
                 <div>
                     <h3>"Education"</h3>
-                    <p>"NUS, B.Sc. Data Science, year 3. GPA 4.39/5.00, best semester 4.80."</p>
+                    <p>{EDUCATION}</p>
                 </div>
                 <div>
                     <h3>"Experience"</h3>
                     <ul>
-                        <li><strong>"NUS content creator."</strong>" Produced blended learning videos for TCX1002 with Prof. Jiang Kan, from scripting through editing."</li>
-                        <li><strong>"BearlyFunGym."</strong>" Coached children through milestone based lessons and kept parents informed."</li>
-                        <li><strong>"AUA Tsinghua."</strong>" Selected participant in the Asia Universities Alliance program at Tsinghua University."</li>
+                        {EXPERIENCE.iter().map(|&(title, text)| view! { <li><strong>{title}</strong>" "{text}</li> }).collect_view()}
                     </ul>
                 </div>
                 <div>
                     <h3>"Races"</h3>
                     <ul class="race-list">
-                        <li class="upcoming"><span>"BTS170, East Java, Nov 2026"</span><strong>"170 km"</strong></li>
-                        <li><span>"Singapore loop for SHINE"</span><strong>"202.54 km"</strong></li>
-                        <li><span>"BUS Backyard Ultra, third"</span><strong>"83.52 km"</strong></li>
-                        <li><span>"Rinjani, first race"</span><strong>"61.27 km"</strong></li>
-                        <li><span>"CULTRA, highest placing Singaporean"</span><strong>"60 km"</strong></li>
+                        {RACES.iter().map(|race| view! { <li class:upcoming=race.upcoming><span>{race.name}</span><strong>{race.distance}</strong></li> }).collect_view()}
                     </ul>
                 </div>
             </div>
@@ -585,7 +555,12 @@ fn DocumentLinks() -> impl IntoView {
 #[component]
 fn Footer(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
     let (name, set_name) = signal(String::new());
-    let (topic, set_topic) = signal("Internship".to_string());
+    let (topic, set_topic) = signal(
+        TOPICS
+            .first()
+            .map_or("Hello", |(value, _)| *value)
+            .to_string(),
+    );
     let (message, set_message) = signal(String::new());
     let (status, set_status) = signal(String::new());
     view! {
@@ -594,10 +569,10 @@ fn Footer(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
             <section id="contact" class="contact" aria-labelledby="contact-title">
                 <div class="contact-intro">
                     <h2 id="contact-title">"Write to me"</h2>
-                    <p class="footer-lead">"Internships, collaborations, a race to try, or a trip to India or Africa. Messages go to my NUS inbox."</p>
+                    <p class="footer-lead">{CONTACT_INTRO}</p>
                     <a class="email-link" href=format!("mailto:{EMAIL}")>{EMAIL}</a>
                     <ul class="contact-socials">
-                        {CONTACTS.into_iter().map(|(label, href)| view! {
+                        {CONTACTS.iter().map(|&(label, href)| view! {
                             <li><a href=href target="_blank" rel="noopener noreferrer"><SocialIcon name=label />{label}<span class="sr-only">", opens in a new tab"</span></a></li>
                         }).collect_view()}
                     </ul>
@@ -624,7 +599,7 @@ fn Footer(open_egg: impl Fn() + Copy + 'static) -> impl IntoView {
                         <input name="name" aria-label="Your name" placeholder="your name" autocomplete="name" maxlength="80" size="10" prop:value=move || name.get() on:input=move |event| set_name.set(event_target_value(&event)) />
                         " and I'm writing about "
                         <select name="topic" aria-label="Topic" on:change=move |event| set_topic.set(event_target_value(&event))>
-                            {[("Internship", "an internship"), ("Collaboration", "a collaboration"), ("Race or trail tip", "a race or trail"), ("Hello", "just saying hi")].into_iter().map(|(value, label)| view! { <option value=value selected=move || topic.get() == value>{label}</option> }).collect_view()}
+                            {TOPICS.iter().map(|&(value, label)| view! { <option value=value selected=move || topic.get() == value>{label}</option> }).collect_view()}
                         </select>
                         "."
                     </p>
@@ -674,24 +649,17 @@ fn NextUp(close: impl Fn() + Copy + 'static) -> impl IntoView {
                     <button node_ref=close_button class="round-button close" aria-label="Close" on:click=move |_| close()><span aria-hidden="true">"\u{00D7}"</span></button>
                 </header>
                 <ol class="tickets">
-                    <li class="ticket bib">
-                        <span class="ticket-label">"race bib"</span>
-                        <strong>"BTS170"</strong>
-                        <span>"Bromo Tengger Semeru, East Java"</span>
-                        <span class="ticket-meta"><b>"170K"</b><b>"Nov 7 to 8, 2026"</b></span>
-                    </li>
-                    <li class="ticket launch">
-                        <span class="ticket-label">"launch ticket"</span>
-                        <strong>"Sheng"</strong>
-                        <span>"Public launch for language learning from the videos you already watch."</span>
-                        <span class="ticket-meta"><b>"desktop"</b><b>"end of 2026"</b></span>
-                    </li>
-                    <li class="ticket pass">
-                        <span class="ticket-label">"boarding pass"</span>
-                        <strong class="route">"SIN"<i aria-hidden="true">"\u{2708}"</i>"IND / AFR"</strong>
-                        <span>"I want to spend time working and learning in India and Africa."</span>
-                        <span class="ticket-meta"><b>"gate: your inbox"</b><b>"seat: open"</b></span>
-                    </li>
+                    {TICKETS.iter().map(|ticket| view! {
+                        <li class=format!("ticket {}", ticket.style)>
+                            <span class="ticket-label">{ticket.label}</span>
+                            {match ticket.title.split_once('>').filter(|_| ticket.style == "pass") {
+                                Some((from, to)) => view! { <strong class="route">{from.trim()}<i aria-hidden="true">"\u{2708}"</i>{to.trim()}</strong> }.into_any(),
+                                None => view! { <strong>{ticket.title}</strong> }.into_any(),
+                            }}
+                            <span>{ticket.text}</span>
+                            <span class="ticket-meta">{ticket.meta.iter().map(|&item| view! { <b>{item}</b> }).collect_view()}</span>
+                        </li>
+                    }).collect_view()}
                 </ol>
                 <a class="send-button" href="#contact" on:click=move |_| close()>"got an idea? say hi"<span aria-hidden="true">" \u{2192}"</span></a>
             </section>

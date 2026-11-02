@@ -90,7 +90,7 @@ Letter entrances 640ms, row and panel transitions 350 to 500ms, marquee 48 to 56
 
 ## 7. Content and tone
 
-Concise, factual, sentence case in source. No em or en dash characters, AI wording, buzzwords, invented metrics or fake testimonials. Never show a phone number, date of birth or student number.
+The project, post, race, ticket and contact lists in this document describe the launch content. The owner updates them through the site editor in `content/*.json`, which then takes precedence for content. Layout, tokens and behavior rules here still apply. Concise, factual, sentence case in source. No em or en dash characters, AI wording, buzzwords, invented metrics or fake testimonials. Never show a phone number, date of birth or student number.
 
 ## 8. Media policy
 
