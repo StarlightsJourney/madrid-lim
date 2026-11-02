@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Linguini",
+    "category": "photo-led language app",
+    "status": "shipped, team",
+    "summary": "Learn the words for what is in your own photos.",
+    "role": "Team of four. I owned the landing page, marketing, user analytics and the evaluation dataset.",
+    "problem": "Fixed syllabus apps teach words a learner may never use.",
+    "built": "The landing page, blog and SEO pages, the launch film and campaign, the analytics write-up, and the image set used to evaluate scene analysis.",
+    "stack": ["typescript", "python", "supabase", "openrouter"],
+    "links": [
+      { "label": "live app", "url": "https://linguini-navy.vercel.app/" },
+      { "label": "landing page", "url": "https://linguini-landing.vercel.app/" },
+      { "label": "GitHub", "url": "https://github.com/CS3216-A3-G7/linguini" }
+    ],
+    "image": "assets/work/linguini-landing.webp"
+  },
+  {
+    "name": "HillGPX",
+    "category": "maps and elevation",
+    "status": "public",
+    "summary": "A map of hills, staircases and tall blocks for finding elevation gain to train on.",
+    "role": "Solo. Data pipeline, design and frontend.",
+    "problem": "Route platforms make it hard to find climbs by terrain.",
+    "built": "Search across 17,747 venues, runnable routes, and a GPX profiler that runs in the browser and never uploads the track.",
+    "stack": ["react", "typescript", "maplibre", "python"],
+    "links": [{ "label": "GitHub", "url": "https://github.com/StarlightsJourney/HillGPX" }],
+    "image": "assets/work/hillgpx.webp"
+  },
+  {
+    "name": "Ka-teng",
+    "category": "family lineage",
+    "status": "public",
+    "summary": "An open source family tree that stays readable as families grow.",
+    "role": "Solo. Design and frontend.",
+    "problem": "Family history is hard to navigate in spreadsheets and chat threads.",
+    "built": "A navigable 2D tree with search and flows to add or connect parents, spouses and children.",
+    "stack": ["react", "typescript", "vite"],
+    "links": [{ "label": "GitHub", "url": "https://github.com/StarlightsJourney/Ka-teng" }],
+    "image": "assets/work/kateng.webp"
+  },
+  {
+    "name": "Sheng",
+    "category": "desktop language capture",
+    "status": "launching 2026",
+    "summary": "Learn from the videos you already watch. Public launch planned for the end of 2026.",
+    "role": "Solo. Architecture and implementation.",
+    "problem": "Looking up a line and turning it into something reviewable breaks the flow.",
+    "built": "Capture, transcription, dictionary lookup and spaced review in one offline-first desktop app.",
+    "stack": ["rust", "tauri", "svelte", "sqlite"],
+    "links": [],
+    "image": "assets/work/sheng.webp"
+  },
+  {
+    "name": "CivicTwin",
+    "category": "policy simulation",
+    "status": "contributor",
+    "summary": "A simulator that finds the residents a transport policy quietly harms.",
+    "role": "Contributor. I redesigned the frontend transport workflow.",
+    "problem": "Averages hide the few people a policy change hurts most.",
+    "built": "A redesign of the policy, simulation, impact, voices and consultation screens across 23 frontend files.",
+    "stack": ["react", "typescript", "python"],
+    "links": [{ "label": "GitHub", "url": "https://github.com/Armaan-king/CivicTwin" }],
+    "image": "assets/work/civictwin.webp"
+  },
+  {
+    "name": "NUS Timetable Optimizer",
+    "category": "constraint scheduling",
+    "status": "private",
+    "summary": "Rank timetables by the tradeoffs students care about.",
+    "role": "Solo. Scoring model and bot.",
+    "problem": "A clash free timetable can still have bad gaps, early lessons and long walks.",
+    "built": "Constraint filtering and weighted scoring over module and venue data.",
+    "stack": ["python", "nusmods", "telegram"],
+    "links": [],
+    "image": ""
+  },
+  {
+    "name": "HejAmigo",
+    "category": "local marketplace",
+    "status": "in development",
+    "summary": "A Denmark first marketplace for local errands.",
+    "role": "Solo. Product and mobile app.",
+    "problem": "Small local tasks need a simple way to match requesters and helpers.",
+    "built": "Map based discovery, task posting, offers, accepted task chat, profiles and reviews.",
+    "stack": ["expo", "react native", "supabase", "maps"],
+    "links": [],
+    "image": ""
+  },
+  {
+    "name": "NoSleepMenuBar",
+    "category": "macOS utility",
+    "status": "public",
+    "summary": "One click keeps a Mac awake.",
+    "role": "Solo.",
+    "problem": "A broken lid sensor made macOS sleep unreliable.",
+    "built": "A native menu bar app with timed presets that restores normal sleep when it stops.",
+    "stack": ["swift", "macOS"],
+    "links": [{ "label": "GitHub", "url": "https://github.com/StarlightsJourney/NoSleepMenuBar" }],
+    "image": ""
+  }
+]

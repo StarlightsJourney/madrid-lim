@@ -1,0 +1,107 @@
+{
+  "hero": {
+    "words": [
+      { "text": "builder", "outline": 1 },
+      { "text": "data science", "outline": 5 },
+      { "text": "maps and gpx", "outline": 1 },
+      { "text": "ultra runner", "outline": 7 }
+    ],
+    "summary": "Madrid Lim. Builder, data science student, maps and GPX tinkerer, ultra runner.",
+    "label_left": "Data Science @ NUS",
+    "label_right": "builds tools / runs ultras",
+    "bubble": [
+      { "first": "next race:", "second": "BTS170 in Nov." },
+      { "first": "Sheng goes", "second": "public this year." },
+      { "first": "India and Africa", "second": "are on my map." }
+    ]
+  },
+  "technologies": [
+    "Rust",
+    "Python",
+    "Java",
+    "Swift",
+    "TypeScript",
+    "PostgreSQL",
+    "PostGIS",
+    "Supabase",
+    "MapLibre",
+    "DaVinci Resolve"
+  ],
+  "work_intro": "Tools I designed, built and shipped. Open a project for my role, the problem and what I built. Private repositories are described, not linked.",
+  "runs_intro": "Trail and road ultras. Flyovers play when they scroll into view. Hover a photo or video for the story, and download the route as GPX.",
+  "about": {
+    "statement": "I study *Data Science at NUS* and build practical tools around *maps, language* and everyday problems. Away from a screen, I run *trail ultras*. Open to internships, collaborations and useful problems.",
+    "education": "NUS, B.Sc. Data Science, year 3. GPA 4.39/5.00, best semester 4.80.",
+    "experience": [
+      {
+        "title": "NUS content creator.",
+        "text": "Produced blended learning videos for TCX1002 with Prof. Jiang Kan, from scripting through editing."
+      },
+      {
+        "title": "BearlyFunGym.",
+        "text": "Coached children through milestone based lessons and kept parents informed."
+      },
+      {
+        "title": "AUA Tsinghua.",
+        "text": "Selected participant in the Asia Universities Alliance program at Tsinghua University."
+      }
+    ],
+    "races": [
+      { "name": "BTS170, East Java, Nov 2026", "distance": "170 km", "upcoming": true },
+      { "name": "Singapore loop for SHINE", "distance": "202.54 km", "upcoming": false },
+      { "name": "BUS Backyard Ultra, third", "distance": "83.52 km", "upcoming": false },
+      { "name": "Rinjani, first race", "distance": "61.27 km", "upcoming": false },
+      { "name": "CULTRA, highest placing Singaporean", "distance": "60 km", "upcoming": false }
+    ]
+  },
+  "contact": {
+    "intro": "Internships, collaborations, a race to try, or a trip to India or Africa. Messages go to my NUS inbox.",
+    "email": "e1398088@u.nus.edu",
+    "topics": [
+      { "subject": "Internship", "label": "an internship" },
+      { "subject": "Collaboration", "label": "a collaboration" },
+      { "subject": "Race or trail tip", "label": "a race or trail" },
+      { "subject": "Hello", "label": "just saying hi" }
+    ],
+    "socials": [
+      { "platform": "GitHub", "url": "https://github.com/StarlightsJourney" },
+      { "platform": "LinkedIn", "url": "https://www.linkedin.com/in/madrid-lim-8264082a2/" },
+      { "platform": "Instagram", "url": "https://www.instagram.com/grow.madrid/" }
+    ]
+  },
+  "documents": [
+    {
+      "title": "Resume",
+      "detail": "One page, Sep 2026",
+      "file": "assets/docs/madrid-lim-resume.pdf"
+    },
+    {
+      "title": "NUS grades",
+      "detail": "Unofficial, GPA 4.39",
+      "file": "assets/docs/madrid-lim-nus-transcript.pdf"
+    }
+  ],
+  "next_up": [
+    {
+      "style": "bib",
+      "label": "race bib",
+      "title": "BTS170",
+      "text": "Bromo Tengger Semeru, East Java",
+      "meta": ["170K", "Nov 7 to 8, 2026"]
+    },
+    {
+      "style": "launch",
+      "label": "launch ticket",
+      "title": "Sheng",
+      "text": "Public launch for language learning from the videos you already watch.",
+      "meta": ["desktop", "end of 2026"]
+    },
+    {
+      "style": "pass",
+      "label": "boarding pass",
+      "title": "SIN > IND / AFR",
+      "text": "I want to spend time working and learning in India and Africa.",
+      "meta": ["gate: your inbox", "seat: open"]
+    }
+  ]
+}

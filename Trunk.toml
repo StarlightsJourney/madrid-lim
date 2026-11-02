@@ -2,3 +2,11 @@
 target = "index.html"
 dist = "dist"
 filehash = false
+
+[watch]
+ignore = ["assets/optimized"]
+
+[[hooks]]
+stage = "pre_build"
+command = "sh"
+command_arguments = ["scripts/optimize-media.sh"]

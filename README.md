@@ -22,12 +22,23 @@ Open `http://127.0.0.1:8080`. Preview release builds from `dist/` like this; `tr
 
 ## Updating the site
 
-The live site is https://starlightsjourney.github.io/madrid-lim/. Every merge into `main` rebuilds and publishes it through `.github/workflows/deploy.yml` in a few minutes. There is no manual deploy.
+The live site is https://starlightsjourney.github.io/madrid-lim/. Every push or merge into `main` tests, rebuilds and publishes it through `.github/workflows/deploy.yml` in a few minutes. There is no manual deploy. If a check fails, the live site stays on the previous version; the reason is in the failed run under the Actions tab.
+
+### With the site editor (no code)
+
+1. Open https://app.pagescms.org, sign in with GitHub, and pick `StarlightsJourney/madrid-lim`. Only accounts with write access to the repository can open it.
+2. Choose Runs, Projects, or About, contact and extras. Edit fields, add items, reorder them, and drag in photos or videos.
+3. Save. The editor commits to `main` under your own GitHub account and the site publishes a few minutes later.
+
+The editor is configured in `.pages.yml`. Uploaded photos and videos go to `assets/uploads/`. When the site builds, `scripts/optimize-media.sh` turns them into `assets/optimized/`: photos become upright WebP at most 1200 px with metadata such as GPS location removed, and videos become 432 by 960 H.264 with a poster frame. The originals stay in the repository, which is public, so turn off location before uploading anything you do not want shared. GPX files and PDFs are published as uploaded. Files over about 25 MB may fail to upload through the editor; add those with git.
+
+### In code
 
 | To change | Edit |
 | --- | --- |
-| Project text, run posts, stats, GPX links, contact links, email, downloadable documents | `src/content.rs` |
-| Layout and behaviour: hero lines, sections, easter eggs, contact form | `src/components/mod.rs` |
+| Project text, run posts, stats, GPX links, about, races, contact intro and topics, email, profile links, documents, hero words, speech bubble, Next up tickets | `content/*.json` (or the site editor) |
+| How content is checked and turned into Rust | `build.rs` (generates the constants used by `src/content.rs`) |
+| Layout and behaviour: sections, easter eggs, contact form | `src/components/mod.rs` |
 | Colours and font | `style/tokens.css` |
 | Spacing, sizes, motion, mobile layout | `style/main.css` |
 | Photos, cutouts, flyovers and posters | `assets/media/` |
@@ -45,7 +56,8 @@ Workflow:
 
 Notes:
 
-- Images are WebP. Videos are H.264 at about 432 by 960 with `+faststart`, plus a WebP poster frame taken from the video. Reference every new file in `src/content.rs`; `cargo test` fails if a referenced file is missing. A new folder under `assets/` also needs a `copy-dir` line in `index.html`.
+- Images are WebP. Videos are H.264 at about 432 by 960 with `+faststart`, plus a WebP poster frame taken from the video. Reference every new file in `content/*.json`. The build fails with a readable list if a referenced file is missing, a link is not https, a date is malformed, or text contains a long dash or something that looks like a phone or student number. A new folder under `assets/` also needs a `copy-dir` line in `index.html`.
+- Building with files in `assets/uploads/` needs ImageMagick and ffmpeg locally (`brew install imagemagick ffmpeg`). CI installs them automatically.
 - Never commit an original resume or transcript. Remove the phone number, student number and date of birth, and flatten the PDF to images first.
 - `index.html` pins the Trunk loader in the CSP with two `sha256` hashes, one for `/` and one for `/madrid-lim/`. They stay valid for normal edits. After upgrading Trunk or renaming the crate, rebuild both targets and replace the hashes.
 - Commits must not credit AI assistants or bots as co-authors. The hooks in `.githooks/` enforce this; see `CONTRIBUTING.md`.
@@ -80,4 +92,4 @@ See `CONTRIBUTING.md`. Enable the authorship hooks with `git config core.hooksPa
 
 ## Content and media
 
-Visible project, run and contact data live in `src/content.rs`. The mounted UI is in `src/components/mod.rs`. Cutouts, post images and flyovers are in `assets/media/`, project screenshots in `assets/work/`, routes in `assets/gpx/`, redacted documents in `assets/docs/`, and Anton with its licence in `assets/fonts/`. Old files remain unreferenced and are not compiled or copied.
+Visible project, run, about and contact data live in `content/*.json`, edited through the site editor, and `build.rs` turns them into the constants in `src/content.rs`. The mounted UI is in `src/components/mod.rs`. Cutouts, post images and flyovers are in `assets/media/`, project screenshots in `assets/work/`, routes in `assets/gpx/`, redacted documents in `assets/docs/`, and Anton with its licence in `assets/fonts/`. Old files remain unreferenced and are not compiled or copied.
