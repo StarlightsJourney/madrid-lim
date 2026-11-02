@@ -257,6 +257,14 @@ impl Checker {
         lit(&value.0)
     }
 
+    fn project_link(&mut self, at: &str, value: &Text) -> String {
+        if value.0.trim_start_matches('/').starts_with("assets/") {
+            lit(&self.file(at, value, Kind::Pdf).unwrap_or_default())
+        } else {
+            self.link(at, value)
+        }
+    }
+
     fn file(&mut self, at: &str, value: &Text, kind: Kind) -> Option<String> {
         let path = value.0.trim_start_matches('/');
         if path.is_empty() {
@@ -408,7 +416,7 @@ fn projects(checker: &mut Checker, projects: &[Project]) -> String {
             .iter()
             .map(|link| {
                 let label = checker.text(&format!("{at} > link label"), &link.label, true);
-                let url = checker.link(&format!("{at} > link url"), &link.url);
+                let url = checker.project_link(&format!("{at} > link url"), &link.url);
                 format!("({label}, {url})")
             })
             .collect();
@@ -443,8 +451,18 @@ fn projects(checker: &mut Checker, projects: &[Project]) -> String {
 
 fn runs(checker: &mut Checker, runs: &[Run]) -> String {
     let mut out = String::from("pub const RUNS: &[RunPost] = &[\n");
+    let mut routes = HashSet::new();
     for (index, run) in runs.iter().enumerate() {
         let at = format!("Runs > {}", label(&run.title, index));
+        let route = run.gpx.0.trim_start_matches('/');
+        if !route.is_empty() && !routes.insert(route) {
+            checker.error(
+                &format!("{at} > GPX"),
+                format!(
+                    "{route} is already used by another run. Pick this run's own file or clear it"
+                ),
+            );
+        }
         let stats: Vec<String> = run
             .stats
             .0
@@ -810,7 +828,10 @@ fn main() {
     if let Some(items) = read::<Vec<Project>>(&mut checker, "projects.json") {
         out.push_str(&projects(&mut checker, &items));
     }
-    if let Some(items) = read::<Vec<Run>>(&mut checker, "runs.json") {
+    if let Some(mut items) = read::<Vec<Run>>(&mut checker, "runs.json") {
+        items.sort_by(|a, b| {
+            (a.date.0.is_empty(), &a.date.0).cmp(&(b.date.0.is_empty(), &b.date.0))
+        });
         out.push_str(&runs(&mut checker, &items));
     }
     if let Some(data) = read::<Profile>(&mut checker, "profile.json") {

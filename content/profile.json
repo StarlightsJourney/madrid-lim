@@ -10,7 +10,7 @@
     "label_left": "Data Science @ NUS",
     "label_right": "builds tools / runs ultras",
     "bubble": [
-      { "first": "next race:", "second": "BTS170 in Nov." },
+      { "first": "next run:", "second": "Singapore to KL in Jan." },
       { "first": "Sheng goes", "second": "public this year." },
       { "first": "India and Africa", "second": "are on my map." }
     ]
@@ -47,19 +47,21 @@
       }
     ],
     "races": [
-      { "name": "BTS170, East Java, Nov 2026", "distance": "170 km", "upcoming": true },
+      { "name": "Singapore to Kuala Lumpur, Jan 2027", "distance": "350 km", "upcoming": true },
       { "name": "Singapore loop for SHINE", "distance": "202.54 km", "upcoming": false },
       { "name": "BUS Backyard Ultra, third", "distance": "83.52 km", "upcoming": false },
       { "name": "Rinjani, first race", "distance": "61.27 km", "upcoming": false },
-      { "name": "CULTRA, highest placing Singaporean", "distance": "60 km", "upcoming": false }
+      { "name": "CULTRA, highest placing Singaporean", "distance": "60 km", "upcoming": false },
+      { "name": "Maclehose Warm-up, 29th of 99", "distance": "55 km", "upcoming": false }
     ]
   },
   "contact": {
-    "intro": "Internships, collaborations, a race to try, or a trip to India or Africa. Messages go to my NUS inbox.",
+    "intro": "Internships, collaborations, joining a section of my 350 km run from Singapore to KL in January, or a trip to India or Africa. Messages go to my NUS inbox.",
     "email": "e1398088@u.nus.edu",
     "topics": [
       { "subject": "Internship", "label": "an internship" },
       { "subject": "Collaboration", "label": "a collaboration" },
+      { "subject": "Joining the KL run", "label": "joining the run to KL" },
       { "subject": "Race or trail tip", "label": "a race or trail" },
       { "subject": "Hello", "label": "just saying hi" }
     ],
@@ -84,10 +86,10 @@
   "next_up": [
     {
       "style": "bib",
-      "label": "race bib",
-      "title": "BTS170",
-      "text": "Bromo Tengger Semeru, East Java",
-      "meta": ["170K", "Nov 7 to 8, 2026"]
+      "label": "run bib",
+      "title": "SIN to KL",
+      "text": "350 km on foot from Singapore to Kuala Lumpur. Join me for a section.",
+      "meta": ["350K", "Jan 2027"]
     },
     {
       "style": "launch",

@@ -157,7 +157,7 @@ mod tests {
         let contact_links = CONTACTS.iter().map(|(_, href)| *href);
         for href in project_links.chain(contact_links) {
             assert!(
-                href.starts_with("https://"),
+                href.starts_with("https://") || href.starts_with("assets/docs/"),
                 "unsupported link scheme: {href}"
             );
         }
