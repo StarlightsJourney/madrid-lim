@@ -55,6 +55,12 @@
         "image": "assets/work/tiny-japanese-lm-report.webp",
         "url": "assets/docs/tiny-japanese-lm-report.pdf",
         "shape": "page"
+      },
+      {
+        "label": "ugotmonee report",
+        "image": "assets/work/ugotmonee-report.webp",
+        "url": "assets/docs/ugotmonee-report.pdf",
+        "shape": "page"
       }
     ],
     "bubble": [
