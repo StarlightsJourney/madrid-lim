@@ -52,6 +52,32 @@
     "image": "assets/work/hillgpx.webp"
   },
   {
+    "name": "ugotmonee",
+    "category": "expense tracking",
+    "status": "public, report",
+    "summary": "Automatic expense tracking for OCBC and DBS/POSB customers, built from bank alert emails and statements.",
+    "role": "Solo. Design, email and statement parsers, Apps Script and the report.",
+    "problem": "Singapore banks don't let apps connect to personal accounts, so most expense trackers make you type in every payment.",
+    "built": "A Google Sheet with a script that reads bank alert emails every five minutes and imports statement PDFs in the browser, then matches, categorises and charts every payment. Over five months, emails alone showed 51% of the money spent but only 27% of the payments.",
+    "stack": [
+      "typescript",
+      "google apps script",
+      "google sheets",
+      "gemini"
+    ],
+    "links": [
+      {
+        "label": "report (PDF)",
+        "url": "assets/docs/ugotmonee-report.pdf"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/StarlightsJourney/ugotmonee"
+      }
+    ],
+    "image": "assets/work/ugotmonee.webp"
+  },
+  {
     "name": "Ka-teng",
     "category": "family lineage",
     "status": "live, public",
